@@ -1,0 +1,44 @@
+<!--pages/order/order.wxml-->
+<view style='width:100%;background:#eee;height:3px;'></view>
+<view style='width:100%;height:68px;display:flex;background: wheat;' bindtap='choice'>
+  <!--<view style='position: absolute;z-index:2;border:1px red solid;border-radius:4px;color:red;font-size:12px;left:8%;top:48px;'>默认</view>-->
+  <view style='width:26%;height:60px; line-height:60px;vertical-align: text-top;text-align:center'>{{name}}</view>
+  <view style='width:65%;height:30px;'>
+    <view style='width:100%;height:30px;line-height:30px;vertical-align: middle;text-align:lefft'>{{phone}}</view>
+    <block >
+      <view style='width:100%;height:35px;overflow:hidden;font-size:14px;'>{{address}}</view>
+    </block>
+  </view>
+  <view style='width:10%;height:60px;line-height:60px;vertical-align: middle;text-align:center'><image src='../icons/arrow-right.png' style='width:25px;height:25px;line-height:60px;vertical-align: middle;'></image></view>
+</view>
+<view style='width:100%;background:#eee;height:3px;'></view>
+<view style='width:96%;margin-left:2%;height:30px;line-height:30px;vertical-align: middle;overflow:hidden'>满减活动(全场通用,限时价,特购价...)<image src='../icons/arrow-right.png' style='margin-top:7px;width:15px;height:15px;line-height:30px;vertical-align: middle;float:right'></image> </view>
+<view  style='width:100%;height:1px;background:#eee;'></view>
+<view style='width:96%;margin-left:2%;height:30px;line-height:30px;vertical-align: middle;'>商品合计 <text style='color:red;line-height:30px;float:right;'>¥{{numPrice[0]}}.00</text> </view>
+<view  style='width:100%;height:1px;background:#eee;'></view>
+<view style='width:96%;margin-left:2%;height:30px;line-height:30px;vertical-align: middle;'>运费<text style='color:red;line-height:30px;float:right;'>¥0.00</text></view>
+<view  style='width:100%;height:1px;background:#eee;'></view>
+<view style='width:96%;margin-left:2%;height:30px;line-height:30px;vertical-align: middle;'>优惠券<text style='color:red;line-height:30px;float:right;'>¥-{{discount}}.00</text></view>
+<view style='width:100%;background:#eee;height:3px;'></view>
+
+<!--循环遍历下单的商品-->
+<block wx:for='{{orders}}' >
+  <view style='width:98%;height:90px;margin-left:1%;display:flex;background:#ddd;border-radius:5px;margin-top:2px;'>
+    <view style='width:20%;height:80px;margin-top:5px;margin-left:1%'><image src='{{url+item.pImage}}'style='width:70px;height:70px;'></image></view>
+    <view style='width:70%;height:80px;margin-left:2%'>
+        <view style='width:100%;height:27px;;line-height:27px;vertical-align: middle;overflow:hidden;font-size:18px;'>{{item.pName}}</view>
+        <view style='width:100%;height:27px;line-height:27px;vertical-align: middle;overflow:hidden;font-size:15px;'>{{item.pDetail}}</view>
+        <view style='width:100%;height:27px;line-height:27px;vertical-align: middle;overflow:hidden;font-size:15px;color:red;'>¥{{item.pPrice}}</view>
+    </view>
+    <view style='width:6%;height:80px;margin-left:1%;text-align:center;color:#8A8A8A'>x{{item.pNum}}</view>
+  </view>
+  <view  style='width:98%;height:1px;background:#eee;margin-left:1%;margin-top:2px;'></view>
+</block>
+<block wx:if="{{orders.length>=3}}">
+  <view  style='width:100%;height:50px;background:#eee;'></view>
+</block>
+<!--底部tabbar-->
+<view style='position:fixed;width:100%;height:50px;background:#ddd;bottom:1px;text-align:center;display:flex;'>
+    <view style='width:50%;color:red;line-height:50px;'>实付:¥{{numPrice[1]}}.00</view> 
+    <view style='margin-left:20%;width:30%;color:white;background:red;line-height:50px;' bindtap='pay'>付款</view>
+</view>

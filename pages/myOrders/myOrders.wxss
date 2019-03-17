@@ -1,0 +1,20 @@
+/* pages/myOrders/myOrders.wxss */
+view{
+  vertical-align: middle;
+  font-family: KaiTi;
+}
+.topView{
+  display: flex;
+  width: 100%;
+  position: fixed;
+  z-index: 515;
+  top:0px;
+  background: white;
+}
+.topView view{
+  text-align:center;
+}
+image{
+  height: 100%;
+  width: 100%; 
+}

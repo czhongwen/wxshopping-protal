@@ -1,0 +1,4 @@
+/* pages/address/address.wxss */
+.view{
+  position:fixed;
+}

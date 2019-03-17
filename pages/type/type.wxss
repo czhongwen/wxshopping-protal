@@ -1,0 +1,60 @@
+.view1{
+  margin-left: 1%;
+  width: 28%;
+  text-align: center;
+  flex-direction: column;
+  border-right: 1px solid;
+}
+.view11{
+  text-align:center;
+}
+.view11 text{
+  transition-duration: 0.5s;
+}
+.view2{
+  height: 1100rpx;
+  width: 70%;
+  float: right;
+  border-top: 1px #eee solid;
+  border-right: 1px #eee solid;
+}
+.view3{
+  height: 1100rpx;
+  width: 100%;
+  float: right;
+}
+swiper-item{
+  width: 100%;
+}
+.firstView{
+  width: 100%;
+}
+.firstView1{
+  width: 100%;
+}
+.firstImage{
+  margin-top: 5px;
+  margin-left: 5%;
+  width: 90%;
+  height: 120px;
+}
+.firstView2{
+  width: 100%;
+  text-align: center;
+}
+.firstView3{
+  width: 100%;
+}
+.firstView4{
+  float: left;
+  margin-top: 4px;
+  margin-left: 2%;
+  width: 30%;
+  text-align: center;
+  font-size: 12px;
+}
+.firstImage1{
+  width: 70px;
+  height: 70px;
+  border-radius: 33px;
+}

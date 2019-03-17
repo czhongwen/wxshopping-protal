@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/person/person",
+    "pages/myOrders/myOrders",
+    "pages/address/address",
+    "pages/addAddress/addAddress",
+    "pages/search/search",
+    "pages/carts/carts",
+    "pages/type/type",
+    "pages/browseProduct/browseProduct",
+    "pages/order/order",
+    "pages/productDetail/productDetail",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "微信商城",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "position": "bottom",
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "pages/icons/3.png",
+        "iconPath": "pages/icons/3.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "pages/icons/1.png",
+        "iconPath": "pages/icons/1.png",
+        "pagePath": "pages/type/type",
+        "text": "分类"
+      },
+      {
+        "selectedIconPath": "pages/icons/cart.png",
+        "iconPath": "pages/icons/cart.png",
+        "pagePath": "pages/carts/carts",
+        "text": "购物车"
+      },
+      {
+        "selectedIconPath": "pages/icons/2.png",
+        "iconPath": "pages/icons/2.png",
+        "pagePath": "pages/person/person",
+        "text": "用户"
+      }
+    ]
+  }
+}

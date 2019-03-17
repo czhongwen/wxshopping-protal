@@ -1,0 +1,32 @@
+<!--pages/address/address.wxml-->
+<view style='width:98%;'>
+  <!--收货地址应有多个  so for循环-->
+  <block wx:for="{{addresList}}">
+    <!--fengexian-->
+    <view style='width:100%;margin-left:1%;background:#eee;height:2px;'></view>
+    <view style='width:100%;height:90px;display:flex;margin-left:1%;'>
+      <block wx:if="{{index==0}}">
+        <view style='width:26%;height:90px;text-align:center;' bindtap="choice" data-indexadd='{{index}}'>
+          <view style='width:100%;height:43px;line-height:43px;vertical-align: middle;'>{{item.name}}</view>
+          <view style='width:100%;height:30px;color:red;font-size:12px;'>默认</view>
+        </view>
+        <view style='width:50%;height:90px;margin-left:1%' bindtap="choice" data-indexadd='{{index}}'>
+          <view style='width:100%;height:43px;line-height:43px;vertical-align: middle;text-align:lefft'>{{item.phone}}</view>
+          <view style='width:100%;height:45px;overflow:hidden;font-size:14px;'>{{item.province}}{{item.city}}{{item.county}}{{item.detail}}</view>
+        </view>
+        <view style='width:24%;height:90px;line-height:90px;vertical-align: middle;text-align:center' bindtap='editor' data-index='{{index}}'>编辑</view>
+      </block>
+      <block wx:else>
+        <view style='width:26%;height:43px;line-height:43px;vertical-align: middle;text-align:center' bindtap="choice" data-indexadd='{{index}}'>{{item.name}}</view>
+        <view style='width:50%;height:90px;margin-left:1%' bindtap="choice" data-indexadd='{{index}}'>
+          <view style='width:100%;height:43px;line-height:43px;vertical-align: middle;text-align:lefft'>{{item.phone}}</view>
+          <view style='width:100%;height:45px;overflow:hidden;font-size:14px;'>{{item.province}}{{item.city}}{{item.county}}{{item.detail}}</view>
+        </view>
+        <view style='width:24%;height:90px;line-height:90px;vertical-align: middle;text-align:center' bindtap='editor' data-index='{{index}}'>编辑</view>
+      </block>
+    </view>
+  </block>
+  <view style='width:100%;margin-left:1%;background:#eee;height:3px;'></view>
+</view>
+<view style='width:100%;height:{{height-200}}px;text-align:center;line-height:{{height-200}}px;vertical-align:middle;' hidden='{{addFlag}}'><image  src='{{url}}、/wxshopping/userfiles/images/5C07A3AE8DCF16D9645D2DC839CDDB6A.png' style='width:96%;height:{{height-280}}px;margin-top:50px;'></image></view>
+<view style='position:fixed;bottom:0px;width:100%;background:#eee;height:50px;line-height:50px;vertical-align:text-top;text-align:center' bindtap='addAddress'>+新增地址</view>

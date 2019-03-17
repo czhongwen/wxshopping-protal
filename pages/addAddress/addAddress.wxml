@@ -1,0 +1,21 @@
+<!--pages/addAddress/addAddress.wxml-->
+<view style='margin-left:1%;width:98%;height:1px;background:#eee'></view>
+<input bindinput='name'type="text" placeholder='姓名'style='margin-left:1%;width:98%;height:40px;' value='{{name}}'></input>
+<view style='margin-left:1%;width:98%;height:1px;background:#eee'></view>
+<input bindinput='phone'type="number"  placeholder='手机号码' style='margin-left:1%;width:98%;height:40px;;' value='{{phone}}'></input>
+<view style='margin-left:1%;width:98%;height:1px;background:#eee'></view>
+<view class="section">
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view class="picker" style='height:40px;line-height:40px;vertical-align:middle;'>
+      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+    </view>
+  </picker>
+</view>
+<view style='margin-left:1%;width:98%;height:1px;background:#eee'></view>
+<input bindinput='detailAddress' placeholder='详细地址:如楼道,楼盘号等' style='margin-left:1%;width:98%;height:40px;' value='{{detailAddress}}'></input>
+<view style='margin-left:1%;width:98%;height:1px;background:#eee'></view>
+<view style='margin-left:1%;width:98%;height:40px;text-align:center;margin-top:30px;'>
+  <radio style='size:14px;transform:scale(0.8);' checked='{{defalut}}' bindtap="clickDefalut">设为默认地址</radio>
+</view>
+<view style='position: fixed;bottom:51px;width:100%;background:#eee;height:50px;line-height:50px;vertical-align: middle;text-align:center;' bindtap='save' hidden='{{delFlag}}' bindtap='del'>-刪除</view>
+<view style='position: fixed;bottom:0px;width:100%;background:#eee;height:50px;line-height:50px;vertical-align: middle;text-align:center;' bindtap='saveCheck'>+保存</view>

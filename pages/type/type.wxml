@@ -1,0 +1,28 @@
+<view class='view' style='display:flex'>
+
+  <view class='view1'>
+    <view wx:for='{{type}}'>
+      <view class='view11' bindtap="change" data-index="{{index}}"><text style='{{item.style}}'>{{item.name}}\n\n</text></view>
+    </view>
+  </view>
+
+  <view class='view2' >
+    <swiper class='view3'  current="{{index}}" duration="300" bindchange="change1" circular="true" vertical='true'>
+
+      <swiper-item wx:for='{{typeList}}'  catchtouchmove='catchTouchMove'>
+        <view class='firstView' >
+          <view class='firstView1'><image class='firstImage' src='{{url+item.topPic}}'></image></view>
+          <view class='firstView2'>{{item.title}}</view>
+          <view class='firstView3'>
+            <view class='firstView4' wx:for="{{item.arr}}">
+              <image bindtap='browse' data-id='{{item.id}}' class='firstImage1' src='{{url+item.image}}'></image>
+              <text >\n{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </swiper-item> 
+
+    </swiper>
+  </view>
+
+</view>

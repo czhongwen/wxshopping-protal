@@ -1,0 +1,65 @@
+<block wx:if="{{viewFlag}}">
+  <view class='view1'>
+    <view class='view2'>
+      <view class='view3'></view>
+      <view class='view31'>30天无忧退货</view>
+    </view>
+    <view class='view2'>
+      <view class='view3'></view>
+      <view class='view31'>48小时快速退款</view>
+    </view>
+    <view class='view2'>
+      <view class='view3'></view>
+      <view class='view31'>满88元免邮费</view>
+    </view>
+  </view>
+  <view class='view4'>
+    <view class='view41'>全场加价购</view>
+    <view class='view42'>再购买700元立享700元超值换购</view>
+    <view class='view43'></view>
+    <view class='view44'>查看换购</view>
+  </view>
+  <scroll-view class='view5' scrllo-y='true'>
+    <checkbox-group wx:for="{{cartList}}">
+      <!--将来循环的部分-->
+      <view class='view50' bindtouchstart='touchStart' bindtouchend='touchEnd' bindtouchmove='touchMove' style='{{item.pStyle}}' data-index='{{index}}'>
+        <view class='view51'>
+          <checkbox class='view51Che' checked='{{item.flag}}' bindtap='sigleCheck' data-cartindex='{{index}}'></checkbox>
+        </view>
+        <view class='view52' bindtap='detail' data-pid='{{item.pId}}'>
+          <image class='view52Image' src='{{url+item.pImage}}'></image>
+        </view>
+        <view class='view53'>
+          <view class='view531' bindtap='detail'>{{item.pName}}</view>
+          <view class='view532'>{{item.pDetail}}</view>
+          <view class='view533'>
+            <view class='view5331'>¥{{item.pPrice}}</view>
+            <view class='view5332'>
+              <view class='view53321' bindtap='minusNum' data-cartindex='{{index}}'>
+                <image class='vimage' src='../icons/minus.png'></image>
+              </view>
+              <view class='view53322'>{{item.pNum}}</view>
+              <view class='view53323' bindtap='addNum' data-cartindex='{{index}}'>
+                <image class='vimage' src='../icons/add.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='delete' bindtap='deleteCart' data-cartindex='{{index}}'>删除</view>
+      <view class='view6'></view>
+    </checkbox-group>
+
+    <view class='viewBottom'></view>
+  </scroll-view>
+  <view class='view7'>
+    <view class='view71'>
+      <checkbox bindtap='choseAll' checked='{{allCheckFlag}}'>全选</checkbox>
+    </view>
+    <view class='view72' style='text-align:right;margin-right:15px;'><text hidden='{{chooseFlag}}'>已选({{cartNumPrice[0]}})共</text>¥{{cartNumPrice[1]}}</view>
+    <view class='view73' bindtap='order' style='{{orderStyle}}'>下单</view>
+  </view>
+</block>
+<view wx:else style='width:100%;height:{{height-200}}px;text-align: center;line-height:{{height-200}}px;vertical-align: middle;'>
+  <image src='{{url}}/wxshopping/userfiles/images/gowuche.png' style='margin-top:120px;width:120px;height:100px;'></image>
+</view>

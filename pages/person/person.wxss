@@ -1,0 +1,69 @@
+/* pages/person/person.wxss */
+.topView{
+  display: flex;
+  background: black;
+  height: 120px;
+  width: 98%;
+  margin-left: 1%;
+  border-radius: 5px;
+}
+.imageView{
+  margin-left: 1%;
+  margin-top: 10px;
+  width: 35%;
+}
+.imageView image{
+  margin-left: 2px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.viewBox{
+  width: 64%;
+  margin-top: 20px;
+  height: 100px;
+}
+.nkView{
+  margin-top: 12%;
+  margin-left: 5%;
+  color: white;
+}
+.plView{
+  margin-top: 2%;
+  margin-left: 5%;
+  color: #EECFA1;
+}
+.tabView{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+}
+.hang{
+  height: 35px;
+  width: 100%;
+  margin-left: 1%;
+  border-radius: 2px;
+  display: flex;
+}
+.hangImage1{
+  width: 10%;
+}
+.hangName{
+  width: 78%;
+  padding-left: 3%;
+  padding-top: 2%;
+}
+.hangImage{
+   height: 100%;
+   width: 10%;
+}
+.hang image{
+  height: 28px;
+  width: 28px;
+}
+.line{
+  height: 1px;
+  width: 98%;
+  background: #ddd;
+  margin-left: 1%;
+}
