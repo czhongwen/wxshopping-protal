@@ -22,10 +22,12 @@ Page({
   onShow:function(){
     var that=this;
     wx.request({
-      url: that.data.url +'/wxshopping/GetHotProducts',
+      url: that.data.url +'/index/getHot',
+      method:"POST",
       success:function(res){
+        console.log(res);
         that.setData({
-          bottomList:res.data
+          bottomList:res.data.result
         })
       }
     })

@@ -4,7 +4,7 @@
 //https://www.czhongwen.xyz
 App({
   globalData: {
-    url: "https://www.czhongwen.xyz",
+    url: "http://192.168.199.166:8081",
     userInfo: 0,
     width: 0,
     height: 0,
@@ -25,13 +25,13 @@ App({
       success: res => {
         //console.log(res.code)
         wx.request({
-          url: "https://www.czhongwen.xyz/wxshopping/GetWXOppenIdServlet?type=803&key=" + res.code,
+          url: "http://192.168.199.166:8081/wxshopping/GetWXOppenIdServlet?type=803&key=" + res.code,
           success: function(res) {
             console.log(res.data.openId)
             wx.setStorageSync("openId", res.data.openId)
             //获取用户购物车
             wx.request({
-              url: 'https://www.czhongwen.xyz/wxshopping/GetCartsList',
+              url: 'http://192.168.199.166:8081/wxshopping/GetCartsList',
               data: {
                 openId: res.data.openId
               },
@@ -48,7 +48,7 @@ App({
               }
             })
             wx.request({
-              url: 'https://www.czhongwen.xyz/wxshopping/GetAddressListByopenId',
+              url: 'http://192.168.199.166:8081/wxshopping/GetAddressListByopenId',
               data: {
                 openId: res.data.openId
               },
@@ -105,7 +105,7 @@ App({
        arrPnum.push(arr[i].pNum)
      }
      wx.request({
-       url: 'https://www.czhongwen.xyz/wxshopping/AddCart',
+       url: 'http://192.168.199.166:8081/wxshopping/AddCart',
        data: {
          arrPid: arrPid,
          arrPnum: arrPnum,
@@ -124,7 +124,7 @@ App({
     
     if (wx.getStorageSync("delAddressFlag")) {
       wx.request({
-        url: 'https://www.czhongwen.xyz/wxshopping/LoadAddressServlet',
+        url: 'http://192.168.199.166:8081/wxshopping/LoadAddressServlet',
         data: {
           openId: wx.getStorageSync("openId"),
           arrInsFlag: null,
@@ -144,7 +144,7 @@ App({
 
     if(wx.getStorageSync("insAddressFlag")){
       wx.request({
-        url: 'https://www.czhongwen.xyz/wxshopping/LoadAddressServlet',
+        url: 'http://192.168.199.166:8081/wxshopping/LoadAddressServlet',
         data: {
           openId: wx.getStorageSync("openId"),
           arrInsFlag: wx.getStorageSync("insAddressFlag"),
@@ -164,7 +164,7 @@ App({
 
     if (wx.getStorageSync("uptAddressFlag")) {
       wx.request({
-        url: 'https://www.czhongwen.xyz/wxshopping/LoadAddressServlet',
+        url: 'http://192.168.199.166:8081/wxshopping/LoadAddressServlet',
         data: {
           openId: wx.getStorageSync("openId"),
           arrInsFlag: null,
