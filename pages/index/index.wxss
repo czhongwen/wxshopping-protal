@@ -16,8 +16,8 @@ swiper image{
   color: #ddd;
 }
 #i1{
-  width: 15px;
-  height: 15px;
+  width: 28rpx;
+  height: 28rpx;
 }
 .scv{
   width: 100%;

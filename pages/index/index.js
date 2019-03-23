@@ -25,9 +25,23 @@ Page({
       url: that.data.url +'/index/getHot',
       method:"POST",
       success:function(res){
-        console.log(res);
-        that.setData({
-          bottomList:res.data.result
+        if (res.data.flag) {
+          that.setData({
+            bottomList: res.data.result
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        } 
+      },
+      fail(res) {
+        wx.showToast({
+          title: 'sorry,系统异常！',
+          icon: 'none',
+          duration: 2000
         })
       }
     })

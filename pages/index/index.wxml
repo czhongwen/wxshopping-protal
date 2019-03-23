@@ -1,6 +1,8 @@
 <view>
   <view class='view1'>
-      <view bindtap='search'><image lazy-load='true' id="i1"  src='../icons/wxb.png'/>搜索商品,共10256款好物</view>
+      <view bindtap='search'>
+        <image lazy-load='true' id="i1"  src='../icons/wxb.png'/>搜索商品,共10256款好物
+      </view>
   </view>
   <view class='scv'>
     <swiper class='swiper' indicator-dots='true' autoplay='true' interval='2000'duration='1000' circular='true'>
@@ -24,12 +26,14 @@
         </view>
         <view style='width:100%;margin-top:6px;height:{{0.16*height}}px'><image lazy-load='true' class='duleImage' src='https://yanxuan.nosdn.127.net/d73b85e3f3d6e2bcecdda65ab87e3846.jpg?imageView&&thumbnail=1090x310&quality=95'></image></view>
     </view>
+    
+    
     <view class="line1"></view>
 
     <!--index页面底部商品循环-->
     <view class='last' wx:for='{{bottomList}}'>
       <view class='lastv1' style='background:#eee;'>
-        <image lazy-load='true' class='lastImage' src='{{url+item.image1}}'></image>
+        <image lazy-load='true' bindtap='click' data-index='{{item.id}}'  class='lastImage' src='{{url+item.image1}}'></image>
       </view>
       <view class='lastView' >
         <view class='lastName'>{{item.name}}</view>
@@ -41,6 +45,5 @@
         </view>
       </view>
     </view>
-
   </view>
 </view>
