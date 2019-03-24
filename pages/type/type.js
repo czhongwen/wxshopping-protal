@@ -4,22 +4,25 @@ Page({
     type: [],
     obj:{style:"",name:""},
     index:"小黑",
-    obj1: { topPic: "", title: "", arr:[]},
-    arr:[],
-    obj2:{image:"",name:"",id:""},
-    typeList:[],
     url : getApp().globalData.url,
   },
   onLoad:function(){
     var that=this;
     wx.request({
-      url: url +'/wxshopping/GetTypeServlet',
+      url: url +'/productType/getAllType',
+      method:"post",
       success:function(res){
-        //console.log(res.data)
-        that.setData({
-          type: res.data.type,
-          typeList: res.data.typeList
-        })
+        if(res.data.flag) {
+          that.setData({
+            type: res.data.result,
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
       }
     })
   },
@@ -30,7 +33,6 @@ Page({
     this.changeCss(e.currentTarget.dataset.index)
   },
   change1:function(e){
-    //console.log(e.detail.current)
     this.changeCss(e.detail.current)
   },
   changeCss: function (index) {
@@ -47,9 +49,8 @@ Page({
     })
   },
   browse:function(e){
-    //console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: '../browseProduct/browseProduct?type=0&'+'msg='+e.currentTarget.dataset.id,
+      url: '../browseProduct/browseProduct?type=0&'+'typeId='+e.currentTarget.dataset.id,
     })
   }
 })

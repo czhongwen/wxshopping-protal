@@ -1,16 +1,27 @@
 <view style='width:100%;height:auto;'>
+  
+  <!--商品排序规则-->
   <view style='width:100%;height:30px;display:flex;position:fixed;z-index:2;background:white;margin-top:0px;'>
     <view style='width:92%;margin-left:4%;height:1px;background:#F8F8FF;;position:fixed;'></view>
-    <view style='width:50%;height:30px;text-align:center;color:#BEBEBE;' bindtap='multiple'><text style='{{style1}}' >综合</text></view>
-    <view style='width:50%;height:30px;text-align:center;color:#BEBEBE;' bindtap='price'><text style='{{style2}}'>价格<text hidden='{{flag1}}' style='{{style3}}'>↑</text> <text hidden='{{flag2}}' style='{{style4}}'>↓</text></text></view>
-  </view>
-  <view style='width:100%;height:30px;'></view>
-  <view style='width:98%;margin-left:1%;margin-bottom:2px;' wx:for='{{arr}}'>
-      <view style='width:46%;height:{{width+30}}px;float:left;margin-left:2.5%;'>
-        <view style='background:#eee;width:100%;height:{{width-20}}px'><image style='width:100%;height:100%;' bindtap='detail' data-id='{{item.pId}}' src='{{url+item.pPic1}}'></image></view>
-        <view style='width:100%;height:20px;overflow:hidden;font-size:13px;line-height:20px;vertical-align: middle;'>{{item.pName}}</view>
-        <view style='width:100%;height:30px;overflow:hidden;line-height:30px;vertical-align:middle;'>￥{{item.pPrice}}</view>
-      </view>
+    <view style='width:50%;height:30px;text-align:center;color:#BEBEBE;' bindtap='multiple'>
+      <text style='{{style1}}'>综合</text>
+    </view>
+    <view style='width:50%;height:30px;text-align:center;color:#BEBEBE;' bindtap='price'>
+      <text style='{{style2}}'>价格<text hidden='{{flag1}}' style='{{style3}}'>↑</text> <text hidden='{{flag2}}' style='{{style4}}'>↓</text></text>
+    </view>
   </view>
 
+  <view style='width:100%;height:30px;'></view>
+  
+  <!--商品列表-->
+  <view style='width:98%;margin-left:1%;margin-bottom:2px;' wx:for='{{arr}}'>
+      <view style='width:46%;height:{{width+30}}px;float:left;margin-left:2.5%;'>
+        <view style='background:#eee;width:100%;height:{{width-20}}px'>
+          <image style='width:100%;height:100%;' bindtap='detail' data-id='{{item.id}}' src='{{url+item.image1}}'></image>
+        </view>
+        <view style='width:100%;height:20px;overflow:hidden;font-size:13px;line-height:20px;vertical-align: middle;'>{{item.name}}</view>
+        <view style='width:100%;height:30px;overflow:hidden;line-height:30px;vertical-align:middle;'>￥{{item.price}}</view>
+      </view>
+  </view>
 </view>
+

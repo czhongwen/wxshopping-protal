@@ -1,27 +1,27 @@
 <view class='view' style='display:flex'>
-
+  
+  <!--标签页-->
   <view class='view1'>
     <view wx:for='{{type}}'>
-      <view class='view11' bindtap="change" data-index="{{index}}"><text style='{{item.style}}'>{{item.name}}\n\n</text></view>
+      <view class='view11' bindtap="change" data-index="{{index}}"><text style='{{item.style}}'>{{item.typename}}\n\n</text></view>
     </view>
   </view>
 
+  <!--跑马灯-->
   <view class='view2' >
     <swiper class='view3'  current="{{index}}" duration="300" bindchange="change1" circular="true" vertical='true'>
-
-      <swiper-item wx:for='{{typeList}}'  catchtouchmove='catchTouchMove'>
+      <swiper-item wx:for='{{type}}'  catchtouchmove='catchTouchMove'>
         <view class='firstView' >
-          <view class='firstView1'><image class='firstImage' src='{{url+item.topPic}}'></image></view>
-          <view class='firstView2'>{{item.title}}</view>
+          <view class='firstView1'><image class='firstImage' src='{{url+item.typeImage}}'></image></view>
+          <view class='firstView2'>{{item.typename}}</view>
           <view class='firstView3'>
-            <view class='firstView4' wx:for="{{item.arr}}">
-              <image bindtap='browse' data-id='{{item.id}}' class='firstImage1' src='{{url+item.image}}'></image>
+            <view class='firstView4' wx:for="{{item.detail}}">
+              <image bindtap='browse' data-id='{{item.id}}' class='firstImage1' src='{{url+item.imageUrl}}'></image>
               <text >\n{{item.name}}</text>
             </view>
           </view>
         </view>
       </swiper-item> 
-
     </swiper>
   </view>
 

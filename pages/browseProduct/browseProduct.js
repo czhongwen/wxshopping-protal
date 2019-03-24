@@ -11,10 +11,12 @@ Page({
     flag1: true,
     flag2: true,
     clickflag: true,
-    typeNum: 0,
-    typeArr: [],
-    findArr: [],
     url: getApp().globalData.url,
+    order:null,
+    typeId:null,
+    count: 0,
+    offset:0,
+    limit: 8,
   },
   onLoad: function(options) {
     this.setData({
@@ -22,22 +24,8 @@ Page({
     })
     var that = this
     if (options.type == 0) {
-      wx.request({
-        url: url + '/wxshopping/FindProductByType?typeNum=' + options.msg + '&no=' + that.data.no,
-        success: function(res) {
-          if (res.data.result == "empty") {
-            wx.navigateBack({
-              url: "../browseProduct/browseProduct"
-            })
-          }
-          that.setData({
-            arr: res.data.result,
-            typeArr: res.data.result,
-            typeNum: options.msg,
-            no: that.data.no + 8,
-          })
-        }
-      })
+      that.data.typeId = options.typeId;
+      this.sort();
     } else if (options.type == 1) {
       //console.log(options.msg)
     }
@@ -56,8 +44,9 @@ Page({
       style4: "",
       flag1: true,
       flag2: true,
-      arr: this.data.typeArr,
+      order:null,
     })
+    this.sort();
   },
 
   price: function() {
@@ -70,6 +59,7 @@ Page({
         flag1: false,
         flag2: true,
         clickflag: false,
+        order:"ASC",
       })
     } else {
       this.setData({
@@ -80,46 +70,66 @@ Page({
         flag1: true,
         flag2: false,
         clickflag: true,
+        order:"DESC",
       })
     }
-    this.sort()
+    this.sort();
   },
 
   sort: function() {
     var that = this
     wx.request({
-      url: url + 'SortProduct',
+      url: url + '/product/getProductList',
+      method: "post",
       data: {
-        flag: that.data.clickflag,
-        arrs: that.data.arr.length,
-        typeNum: that.data.typeNum,
+        typeId: that.data.typeId,
+        offset: 0,
+        limit: that.data.limit,
+        order: that.data.order,
       },
-      method: "POST",
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function(res) {
-        that.setData({
-          arr: [],
-          arr: res.data.result
-        })
+      success: function (res) {
+        if (!res.data.flag) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        } else {
+          that.setData({
+            arr: res.data.result.list,
+            count:res.data.result.count,
+            offset:that.data.limit,
+          })
+        }
       }
     })
   },
 
   onReachBottom: function() {
-    wx.showNavigationBarLoading()
+    if (this.data.count <= this.data.offset ){
+        console.log("没有数据了！！！");
+        return;
+    }
     var that = this
+    wx.showNavigationBarLoading()
     wx.request({
-      url: url + 'FindProductByType?typeNum=' + (that.data.typeNum) + '&no=' + that.data.no,
-      success: function(res) {
-        if (res.data.result != "empty") {
-          var temp = that.data.arr.concat(res.data.result)
-          that.setData({
-            arr: temp,
-            typeArr: temp,
-            no: that.data.no + 8,
+      url: url + '/product/getProductList',
+      method: "post",
+      data: {
+        typeId: that.data.typeId,
+        offset: that.data.offset,
+        limit: that.data.limit,
+        order: that.data.order,
+      },
+      success: function (res) {
+        if (!res.data.flag) {
+          console.log(res);
+          wx.navigateBack({
+            delta: 1,
           })
+        } else {
+          that.setData({
+            arr: that.data.arr.concat(res.data.result.list)
+          })
+          that.data.offset = that.data.offset + that.data.limit;
         }
         wx.hideNavigationBarLoading();
       }
