@@ -55,7 +55,7 @@ view{
 }
 .page{
   position: absolute;
-  z-index: 518;
+  z-index: 200;
   background: #ddd;
   color: black;
   height: 18px;

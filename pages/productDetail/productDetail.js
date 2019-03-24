@@ -18,7 +18,6 @@ Page({
     url: getApp().globalData.url,
   },
   onLoad: function(options) {
-    console.log(options.pId)
     var that = this;
     wx.request({
       url: url +'/product/getById' ,
@@ -28,7 +27,6 @@ Page({
       },
       success: function(res) {
         if(res.data.flag) {
-          console.log(res.data)
           that.data.switer = [];
           that.data.switer.push(res.data.result.image1);
           that.data.switer.push(res.data.result.image2);
@@ -36,14 +34,13 @@ Page({
           that.data.switer.push(res.data.result.image4);
           that.data.switer.push(res.data.result.image5);
           that.setData({
+            switer:that.data.switer,
             pId: res.data.result.id,
             pName: res.data.result.name,
             pInfo: res.data.result.info,
             pPrice: res.data.result.price
           })
-          console.log(that.data.switer);
-          var article = res.data.result.detail;
-          WxParse.wxParse('article', 'html', article, that, 5);
+          WxParse.wxParse('article', 'html', res.data.result.detail, that, 0);
         } else {
           this.showToast({
             title: res.data.msg,
