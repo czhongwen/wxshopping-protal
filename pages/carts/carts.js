@@ -15,16 +15,33 @@ Page({
   },
 
   onLoad: function () {
-    if (wx.getStorageSync("carts").length == 0) {
-      this.setData({
-        viewFlag: false,
-      })
-    } else {
-      this.setData({
-        viewFlag: true,
-        cartList: wx.getStorageSync("carts"),
-      })
-    }
+    var that = this;
+    wx.request({
+      url: url + '/cart/getCarts',
+      data:{
+        openId: wx.getStorageSync("openId"),
+      },
+      method: "post",
+      success:function(res){
+        console.log(res);
+        if (res.data.flag) {
+          if(res.data.result ==null || res.data.result.length == 0) {
+            that.setData({
+              viewFlag: false,
+            })
+          } else {
+            that.setData({
+              viewFlag: true,
+              cartList: res.data.result,
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+          })
+        }
+      }
+    })
     this.setData({
       height: getApp().globalData.height,
     })
@@ -127,7 +144,7 @@ Page({
     for (let i = 0; i < this.data.cartList.length; ++i) {
       if (this.data.cartList[i].flag == true) {
         index++;
-        numPrice = numPrice + this.data.cartList[i].pPrice * this.data.cartList[i].pNum
+        numPrice = numPrice + this.data.cartList[i].price * this.data.cartList[i].num
       }
     }
     this.data.cartNumPrice[0] = index
@@ -138,24 +155,23 @@ Page({
   },
 
   addNum: function (e) {
-    var num = this.data.cartList[e.currentTarget.dataset.cartindex].pNum
-    this.data.cartList[e.currentTarget.dataset.cartindex].pNum = num + 1;
+    var num = this.data.cartList[e.currentTarget.dataset.cartindex].num
+    this.data.cartList[e.currentTarget.dataset.cartindex].num = num + 1;
     this.setData({
       cartList: this.data.cartList,
     })
     if (this.data.cartList[e.currentTarget.dataset.cartindex].flag != false) {
-      this.data.cartNumPrice[1] = this.data.cartNumPrice[1] + this.data.cartList[e.currentTarget.dataset.cartindex].pPrice
+      this.data.cartNumPrice[1] = this.data.cartNumPrice[1] + this.data.cartList[e.currentTarget.dataset.cartindex].price
       this.setData({
         cartNumPrice: this.data.cartNumPrice
       })
     }
-    wx.setStorageSync("cartFlag", true)
   },
 
   minusNum: function (e) {
-    var num = this.data.cartList[e.currentTarget.dataset.cartindex].pNum
+    var num = this.data.cartList[e.currentTarget.dataset.cartindex].num
     if (num > 1) {
-      this.data.cartList[e.currentTarget.dataset.cartindex].pNum = num - 1;
+      this.data.cartList[e.currentTarget.dataset.cartindex].num = num - 1;
       this.setData({
         cartList: this.data.cartList,
       })
@@ -163,7 +179,6 @@ Page({
         this.sumNumPric();
       }
     }
-    wx.setStorageSync("cartFlag", true)
   },
 
   deleteCart: function (e) {
@@ -172,7 +187,6 @@ Page({
       cartList: this.data.cartList,
     })
     this.sumNumPric();
-    wx.setStorageSync("cartFlag", true)
     if (this.data.cartList.length == 0) {
       this.setData({
         viewFlag: false,
@@ -189,7 +203,7 @@ Page({
     for (let i = 0; i < this.data.cartList.length; ++i) {
       if (this.data.cartList[i].flag == true) {
         index++;
-        numPrice = numPrice + this.data.cartList[i].pPrice * this.data.cartList[i].pNum
+        numPrice = numPrice + this.data.cartList[i].price * this.data.cartList[i].num
       }
     }
     this.data.cartNumPrice[0] = index

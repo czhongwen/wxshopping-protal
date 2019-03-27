@@ -1,7 +1,9 @@
 <view>
   <view class='view1'>
       <view bindtap='search'>
-        <image lazy-load='true' id="i1"  src='../icons/wxb.png'/>搜索商品,共10256款好物
+        <!-- <image lazy-load='true' id="i1"  src='../icons/wxb.png'/>搜索商品,共10256款好物 -->
+        <icon type='search' size='11' color='black'/>
+        <strong style="font-color:black">搜索商品,共10256款好物</strong>
       </view>
   </view>
   <view class='scv'>
@@ -13,9 +15,10 @@
       </block>
     </swiper>
     <view class='viewImage'>
-      <image lazy-load='true' class='imageSuccess' src='../icons/success.png'/>微信自营品牌
-      <image lazy-load='true' class='imageSuccess' src='../icons/success.png'/>30天无忧退货
-      <image lazy-load='true' class='imageSuccess' src='../icons/success.png'/>48小时快速退款
+      <!-- <image lazy-load='true' class='imageSuccess' src='../icons/success.png'/>中文自营品牌 -->
+      <icon size='13' type='success' color='green'/>中文自营品牌
+      <icon size='13' type='success' color='green'/>30天无忧退货
+      <icon size='13' type='success' color='green'/>48小时快速退款
     </view>
     <view class="line"></view>
     <view  class='duView' style='height:{{0.38*height+6}}px;'>

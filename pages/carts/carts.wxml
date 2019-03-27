@@ -26,19 +26,19 @@
         <view class='view51'>
           <checkbox class='view51Che' checked='{{item.flag}}' bindtap='sigleCheck' data-cartindex='{{index}}'></checkbox>
         </view>
-        <view class='view52' bindtap='detail' data-pid='{{item.pId}}'>
-          <image class='view52Image' src='{{url+item.pImage}}'></image>
+        <view class='view52' bindtap='detail' data-pid='{{item.productId}}'>
+          <image class='view52Image' src='{{url+item.image}}'></image>
         </view>
         <view class='view53'>
-          <view class='view531' bindtap='detail'>{{item.pName}}</view>
-          <view class='view532'>{{item.pDetail}}</view>
+          <view class='view531' bindtap='detail'>{{item.name}}</view>
+          <view class='view532'>{{item.info}}</view>
           <view class='view533'>
-            <view class='view5331'>¥{{item.pPrice}}</view>
+            <view class='view5331'>¥{{item.price}}</view>
             <view class='view5332'>
               <view class='view53321' bindtap='minusNum' data-cartindex='{{index}}'>
                 <image class='vimage' src='../icons/minus.png'></image>
               </view>
-              <view class='view53322'>{{item.pNum}}</view>
+              <view class='view53322'>{{item.num}}</view>
               <view class='view53323' bindtap='addNum' data-cartindex='{{index}}'>
                 <image class='vimage' src='../icons/add.png'></image>
               </view>
@@ -61,5 +61,5 @@
   </view>
 </block>
 <view wx:else style='width:100%;height:{{height-200}}px;text-align: center;line-height:{{height-200}}px;vertical-align: middle;'>
-  <image src='{{url}}/wxshopping/userfiles/images/gowuche.png' style='margin-top:120px;width:120px;height:100px;'></image>
+  <image src='{{url}}/images/gowuche.png' style='margin-top:120px;width:120px;height:100px;'></image>
 </view>

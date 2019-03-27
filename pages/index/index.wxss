@@ -7,7 +7,7 @@ swiper image{
   font-size: 75%;
   margin-left: 17%;
   border-radius: 10px;
-  background-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.568);
   position: absolute;
   z-index: 999;
   margin-top: 2%;
