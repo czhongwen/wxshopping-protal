@@ -14,39 +14,6 @@ Page({
     url: getApp().globalData.url,
   },
 
-  onLoad: function () {
-    var that = this;
-    wx.request({
-      url: url + '/cart/getCarts',
-      data:{
-        openId: wx.getStorageSync("openId"),
-      },
-      method: "post",
-      success:function(res){
-        console.log(res);
-        if (res.data.flag) {
-          if(res.data.result ==null || res.data.result.length == 0) {
-            that.setData({
-              viewFlag: false,
-            })
-          } else {
-            that.setData({
-              viewFlag: true,
-              cartList: res.data.result,
-            })
-          }
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-          })
-        }
-      }
-    })
-    this.setData({
-      height: getApp().globalData.height,
-    })
-  },
-
   touchStart: function (e) {
     this.setData({
       startX: e.touches[0].clientX
@@ -54,10 +21,11 @@ Page({
   },
 
   touchMove: function (e) {
+    console.log(e.touches[0].clientX);
     var moveX = e.touches[0].clientX;
     var distans = this.data.startX - moveX
     if (distans > 385) {
-      distans = 384
+      distans = 380
     }
     this.data.cartList[e.currentTarget.dataset.index].pStyle = "left:-" + distans + "px";
     this.setData({
@@ -94,14 +62,18 @@ Page({
     }
   },
 
-
+  /**
+   * 商品详情
+   */
   detail: function (e) {
     wx.navigateTo({
       url: '../productDetail/productDetail?pId=' + e.currentTarget.dataset.pid,
     })
   },
 
-
+  /**
+   * 选中所有
+   */
   choseAll: function () {
     for (var i = 0; i < this.data.cartList.length; ++i) {
       this.data.cartList[i].flag = !this.data.allCheckFlag;
@@ -114,6 +86,9 @@ Page({
     this.style()
   },
 
+  /**
+   * 选中商品
+   */
   sigleCheck: function (e) {
     if (this.data.cartList[e.currentTarget.dataset.cartindex].flag) {
       this.data.cartList[e.currentTarget.dataset.cartindex].flag = false;
@@ -138,6 +113,9 @@ Page({
     this.style()
   },
 
+  /**
+   * 商品数量
+   */
   productsNum: function () {
     var index = 0;
     var numPrice = 0;
@@ -154,6 +132,9 @@ Page({
     })
   },
 
+/**
+ * 增加商品数量
+ */
   addNum: function (e) {
     var num = this.data.cartList[e.currentTarget.dataset.cartindex].num
     this.data.cartList[e.currentTarget.dataset.cartindex].num = num + 1;
@@ -167,7 +148,9 @@ Page({
       })
     }
   },
-
+  /**
+   * 删减商品数量
+   */
   minusNum: function (e) {
     var num = this.data.cartList[e.currentTarget.dataset.cartindex].num
     if (num > 1) {
@@ -180,7 +163,9 @@ Page({
       }
     }
   },
-
+  /**
+   * 删除商品
+   */
   deleteCart: function (e) {
     this.data.cartList.splice(e.currentTarget.dataset.cartindex, 1)
     this.setData({
@@ -194,6 +179,9 @@ Page({
     }
   },
 
+  /**
+   * 计算出总价
+   */
   sumNumPric: function () {
     this.setData({
       cartNumPrice: []
@@ -213,6 +201,9 @@ Page({
     })
   },
 
+  /**
+   * 当用户全选时样式
+   */
   style: function () {
     var flag = false;
     for (let i = 0; i < this.data.cartList.length; i++) {
@@ -223,7 +214,7 @@ Page({
         flag = false
       }
     }
-    if (flag == true) {
+    if (flag) {
       this.setData({
         chooseFlag: false,
         orderStyle: "background:red",
@@ -235,6 +226,10 @@ Page({
       })
     }
   },
+
+  /**
+   * 用户下单
+   */
   order: function () {
     var orders = [];
     var flag = false;
@@ -244,26 +239,69 @@ Page({
         flag = true;
       }
     }
-    if (flag == true) {
+    if (flag) {
       wx.setStorageSync("orders", orders);
       wx.navigateTo({
         url: '../order/order',
       })
     }
   },
+
+  /**
+   * 离开页面将用户的购物车提交
+   */
   onHide: function () {
-    wx.setStorageSync("carts", this.data.cartList)
+    console.log(111);
+    console.log(this.data.cartList);
+  
   },
+
+  /**
+   * 页面渲染前请求一次接口
+   */
   onShow: function () {
-    if (wx.getStorageSync("carts").length > 0) {
-      this.setData({
-        cartList: wx.getStorageSync("carts"),
-        viewFlag: true,
-      })
-    } else {
-      this.setData({
-        viewFlag: false,
-      })
-    }
+    var that = this;
+
+    that.setData({
+      allCheckFlag: false,
+      startX: 0,
+      index: "小黑",
+      cartNumPrice: [0, 0],
+      cartList: [],
+      viewFlag: false,
+      height: 0,
+      chooseFlag: false,
+      orderStyle: "",
+    })
+
+    wx.request({
+      url: url + '/cart/getCarts',
+      data: {
+        openId: wx.getStorageSync("openId"),
+      },
+      method: "post",
+      success: function (res) {
+        console.log(res);
+        if (res.data.flag) {
+          if (res.data.result == null || res.data.result.length == 0) {
+            that.setData({
+              viewFlag: false,
+            })
+          } else {
+            that.setData({
+              viewFlag: true,
+              cartList: res.data.result,
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+          })
+        }
+      }
+    })
+    this.setData({
+      height: getApp().globalData.height,
+    })
   },
 })
