@@ -90,7 +90,7 @@
     </view>
     <view style='height:100px;width:50%;margin-left:2%;'>
       <view style='height:40px;width:100%;margin-top:10px;'>¥
-        <text style='color:#DC143C;font-size:16px;'>{{pPrice}}</text>
+        <text style='color:#DC143C;font-size:16px;'>{{pPrice * num}}</text>
       </view>
       <view style='height:30px;width:100%;margin-top:10px;'>请选择商品规格</view>
     </view>
@@ -117,11 +117,11 @@
   </view>
   <view class='view5332'>
     <view class='view53321'>
-      <image class='vimage' src='../icons/minus.png'></image>
+      <image class='vimage' src='../icons/minus.png' bindtap='substruction'></image>
     </view>
-    <view class='view53322'>1</view>
+    <view class='view53322'>{{num}}</view>
     <view class='view53323'>
-      <image class='vimage' src='../icons/add.png'></image>
+      <image class='vimage' src='../icons/add.png' bindtap='add'></image>
     </view>
   </view>
   <view style='height:50px;width:100%;' />

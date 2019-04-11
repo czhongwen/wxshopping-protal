@@ -9,6 +9,7 @@ Page({
     pInfo: '',
     pPrice: "",
     pId: 0,
+    num:1,
     pType:
     [
       { pTN: "颜色", pType: ["红色", "白色", "黑色"] },
@@ -92,44 +93,48 @@ Page({
   },
 
   addCarts: function() {
-    var arr=[],
-    arr = wx.getStorageSync("carts")
-    var flag = true;
-    if(arr.length==0){
-      flag = true
-    }else{
-      for (let i = 0; i < arr.length; i++) {
-        if (this.data.pId == arr[i].pId) {
-          flag = false
-          break;
+    let _this = this;
+    wx.request({
+      url: url + '/cart/addCart',
+      data:{
+        openId:wx.getStorageSync("openId"),
+        productId: _this.data.pId,
+        num: _this.data.num
+      },
+      method:"post",
+      success:function(res) {
+        console.log(res);
+        if (res.data.flag) {
+            if (res.data.result) {
+              wx.showToast({
+                icon:"success",
+                title:"添加成功!"
+              })
+            } else {
+              wx.showToast({
+                icon: "error",
+                title: res.data.msg
+              })
+            }
         } else {
-          flag = true
+          wx.showToast({
+            icon: "error",
+            title: res.data.msg
+          })
         }
       }
-    }
-    if (flag) {
-      var obj = {
-        pId: this.data.pId,
-        pName: this.data.pName,
-        pDetail: this.data.pInfo,
-        pPrice: this.data.pPrice,
-        pImage: this.data.switer[0],
-        pNum:1,
-        flag: false,
-        pStylr: ""
-      }
-      arr.push(obj)
-      wx.setStorageSync("carts", arr)
-      wx.showToast({
-        title: '添加成功!',
-        icon:"none",
-      })
-      wx.setStorageSync("cartFlag", true)
-    }else{
-      wx.showToast({
-        title: '购物车已存在该商品!',
-        icon: "none",
-      })
+    })
+  },
+  add: function(){
+    this.setData({
+      num:this.data.num + 1
+    })
+  },
+  substruction: function(){
+    if (this.data.num > 1) {
+        this.setData({
+          num:this.data.num - 1
+        })
     }
   }
 })

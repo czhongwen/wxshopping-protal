@@ -21,7 +21,6 @@ Page({
   },
 
   touchMove: function (e) {
-    console.log(e.touches[0].clientX);
     var moveX = e.touches[0].clientX;
     var distans = this.data.startX - moveX
     if (distans > 385) {
@@ -167,16 +166,34 @@ Page({
    * 删除商品
    */
   deleteCart: function (e) {
-    this.data.cartList.splice(e.currentTarget.dataset.cartindex, 1)
-    this.setData({
-      cartList: this.data.cartList,
+    let _this = this;
+    console.log(this.data.cartList[e.currentTarget.dataset.cartindex].id);
+    wx.request({
+      url: url + '/cart/delCartById',
+      method: "post",
+      data:{
+        id: _this.data.cartList[e.currentTarget.dataset.cartindex].id
+      },
+      success: function(res) {
+        console.log(res);
+        if(res.data.flag) {
+          if(res.data.result) {
+            _this.data.cartList.splice(e.currentTarget.dataset.cartindex, 1)
+            _this.setData({
+              cartList: _this.data.cartList,
+            })
+            _this.sumNumPric();
+            if (_this.data.cartList.length == 0) {
+              _this.setData({
+                viewFlag: false,
+              })
+            }
+          }
+        } else {
+          console.log("系统异常!");
+        }
+      },
     })
-    this.sumNumPric();
-    if (this.data.cartList.length == 0) {
-      this.setData({
-        viewFlag: false,
-      })
-    }
   },
 
   /**
@@ -251,9 +268,6 @@ Page({
    * 离开页面将用户的购物车提交
    */
   onHide: function () {
-    console.log(111);
-    console.log(this.data.cartList);
-  
   },
 
   /**
@@ -281,7 +295,6 @@ Page({
       },
       method: "post",
       success: function (res) {
-        console.log(res);
         if (res.data.flag) {
           if (res.data.result == null || res.data.result.length == 0) {
             that.setData({
@@ -293,11 +306,7 @@ Page({
               cartList: res.data.result,
             })
           }
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-          })
-        }
+        } 
       }
     })
     this.setData({

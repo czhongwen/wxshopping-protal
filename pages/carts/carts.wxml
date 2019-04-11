@@ -30,7 +30,7 @@
           <image class='view52Image' src='{{url+item.image}}'></image>
         </view>
         <view class='view53'>
-          <view class='view531' bindtap='detail'>{{item.name}}</view>
+          <view class='view531'>{{item.name}}</view>
           <view class='view532'>{{item.info}}</view>
           <view class='view533'>
             <view class='view5331'>¥{{item.price}}</view>

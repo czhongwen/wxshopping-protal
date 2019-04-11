@@ -1,14 +1,12 @@
 // pages/address/address.js
+var url = getApp().globalData.url;
 Page({
   data: {
     addresList: [],
     addFlag: true,
-    url: getApp().globalData.url
+    url: getApp().globalData.url,
   },
   onLoad: function() {
-    this.setData({
-      addresList: wx.getStorageSync("address")
-    })
     this.setData({
       height: getApp().globalData.height
     })
@@ -28,18 +26,28 @@ Page({
     })
   },
   onShow: function() {
-    this.setData({
-      addresList: wx.getStorageSync("address")
+    console.log(1111);
+    let _this = this;
+    wx.request({
+      url: url + '/address/getAddressList',
+      data: {
+        openId: wx.getStorageSync("openId")
+      },
+      method:"post",
+      success:function(res) {
+        console.log(res);
+        if (res.data.flag) {
+          if (res.data.rows > 0) {
+            console.log(2222)
+            _this.setData({
+              addresList: res.data.result              
+            })
+          }
+        } else {
+
+        }
+      }
     })
-    if (wx.getStorageSync("address").length == 0) {
-      this.setData({
-        addFlag: false
-      })
-    } else {
-      this.setData({
-        addFlag: true
-      })
-    }
   },
   choice: function(e) {
     if (wx.getStorageSync("choiceFlag")) {
@@ -50,5 +58,5 @@ Page({
         url: "../order/order"
       })
     }
-  }
+  },
 })
