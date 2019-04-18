@@ -1,15 +1,15 @@
 // pages/myOrders/myOrders.js
+var url = getApp().globalData.url;
 Page({
   data: {
     height: getApp().globalData.height,
     width: getApp().globalData.width,
-    arr: wx.getStorageSync("carts"),
     index:0,
     arrColor: { one:"color:red;font-size: 3.0vh;border-bottom: 2px solid red;",two:"",three:"",four:""},
-    url:getApp().globalData.url,
     orders:[],
     swHight:0,
     stats:"",
+    url: getApp().globalData.url,
   },
 
   onLoad: function (options) {
@@ -20,39 +20,45 @@ Page({
   },
 
   onShow: function () {
+    console.log(url);
+    console.log(getApp().globalData.url)
     var that=this;
     wx.request({
-      url: getApp().globalData.url + '/wxshopping/GetOrderServlet',
+      url: url + '/order/getOrders',
       data: {
         openId: wx.getStorageSync("openId"),
       },
       method: "POST",
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
       success: function (res) {
         console.log(res.data);
-        var fahuo=[];
-        var shouhuo=[];
-        var wancheng=[];
-        var arr = res.data;
-        for(let i=0;i<arr.length;i++){
-          if(arr[i].status=="待发货"){
-            fahuo.push(arr[i])
-          } else if (arr[i].status == "已发货"){
-            shouhuo.push(arr[i])
-          } else if(arr[i].status == "已收货"){
-            wancheng.push(arr[i])
+        if (res.data.flag) {
+          if (res.data.result.length > 0) {
+            var fahuo = [];
+            var shouhuo = [];
+            var wancheng = [];
+            var arr = res.data.result;
+            for(let i=0;i<arr.length;i++){
+              if(arr[i].status === "待发货") {
+                fahuo.push(arr[i])
+              } else if (arr[i].status === "已发货") {
+                shouhuo.push(arr[i])
+              } else if(arr[i].status === "已收货") {
+                wancheng.push(arr[i])
+              }
+            }
+            that.data.orders.push(res.data.result);
+            that.data.orders.push(fahuo);
+            that.data.orders.push(shouhuo);
+            that.data.orders.push(wancheng);
+            that.setData({
+              orders: that.data.orders,
+            })
+            console.log(that.data.orders)
+            that.countSwHeight(res.data.result)
           }
+        } else {
+
         }
-        that.data.orders.push(res.data);
-        that.data.orders.push(fahuo);
-        that.data.orders.push(shouhuo);
-        that.data.orders.push(wancheng);
-        that.setData({
-          orders: that.data.orders,
-        })
-        that.countSwHeight(res.data)
       }
     })
   },
@@ -60,7 +66,7 @@ Page({
   countSwHeight:function(arr){
     var swHeight = 0;
     for (let i = 0; i < arr.length; i++) {
-      swHeight += (arr[i].products.length * (0.15 + 0.002) + (0.05 + 0.01)) * this.data.height
+      swHeight += (arr[i].list.length * (0.15 + 0.002) + (0.05 + 0.01)) * this.data.height
     }
     this.setData({
       swHeight: swHeight

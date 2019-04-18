@@ -4,7 +4,7 @@
 //https://www.czhongwen.xyz
 App({
   globalData: {
-    url: "http://192.168.199.166:8081",
+    url: "http://192.168.137.35:8081",
     userInfo: 0,
     width: 0,
     height: 0,
@@ -17,8 +17,9 @@ App({
     wx.login({
       success: res => {
         //console.log(res.code)
+        let _this = this;
         wx.request({
-          url: "http://192.168.199.166:8081/login/getOpenId",
+          url: _this.globalData.url + "/login/getOpenId",
           method: "POST",
           data:{
             key: res.code,
