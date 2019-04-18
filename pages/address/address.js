@@ -12,21 +12,17 @@ Page({
     })
   },
   addAddress: function() {
-    wx.setStorageSync("address", this.data.addresList)
     wx.navigateTo({
       url: '../addAddress/addAddress?msg=addAddress',
     })
-    wx.setStorageSync("addAddressFlag", true)
   },
   editor: function(e) {
-    wx.setStorageSync("address", this.data.addresList)
-    wx.setStorageSync("editorFlag", true)
+    wx.setStorageSync("editAddress", this.data.addresList[e.currentTarget.dataset.index])
     wx.navigateTo({
       url: '../addAddress/addAddress?msg=editor&aId=' + e.currentTarget.dataset.index,
     })
   },
   onShow: function() {
-    console.log(1111);
     let _this = this;
     wx.request({
       url: url + '/address/getAddressList',
@@ -35,10 +31,9 @@ Page({
       },
       method:"post",
       success:function(res) {
-        console.log(res);
+        console.log(res.data.result);
         if (res.data.flag) {
           if (res.data.rows > 0) {
-            console.log(2222)
             _this.setData({
               addresList: res.data.result              
             })

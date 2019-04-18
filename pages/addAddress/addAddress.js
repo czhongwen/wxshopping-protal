@@ -27,14 +27,14 @@ Page({
         title: '修改地址',
       })
       var aId = options.aId
-      var arr = wx.getStorageSync("address")
+      var address = wx.getStorageSync("editAddress")
       this.setData({
-        aId: arr[aId].aId,
-        name: arr[aId].name,
-        phone: arr[aId].phone,
-        region: [arr[aId].province, arr[aId].city, arr[aId].county],
-        detailAddress: arr[aId].detail,
-        address: [arr[aId].province, arr[aId].city, arr[aId].county],
+        aId: address.id,
+        name: address.name,
+        phone: address.phone,
+        region: [address.provice, address.city, address.country],
+        detailAddress: address.detail,
+        address: [address.provice, address.city, address.country],
         delFlag: false,
       })
     }

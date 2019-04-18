@@ -20,8 +20,6 @@ Page({
   },
 
   onShow: function () {
-    console.log(url);
-    console.log(getApp().globalData.url)
     var that=this;
     wx.request({
       url: url + '/order/getOrders',
@@ -30,7 +28,6 @@ Page({
       },
       method: "POST",
       success: function (res) {
-        console.log(res.data);
         if (res.data.flag) {
           if (res.data.result.length > 0) {
             var fahuo = [];
@@ -53,7 +50,6 @@ Page({
             that.setData({
               orders: that.data.orders,
             })
-            console.log(that.data.orders)
             that.countSwHeight(res.data.result)
           }
         } else {
@@ -102,14 +98,12 @@ Page({
   
   },
   topView:function(e){
-    //console.log(e.currentTarget.dataset.index)
     this.setData({
       index: e.currentTarget.dataset.index
     })
     this.changeColor(e.currentTarget.dataset.index)
   },
   change: function (e) {
-    //console.log(e.detail.current)
     this.changeColor(e.detail.current)
   },
   changeColor:function(index){
