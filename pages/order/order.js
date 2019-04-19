@@ -9,7 +9,21 @@ Page({
     type:null,
     url: getApp().globalData.url,
   },
-  onLoad:function(){
+  onLoad:function() {
+    wx.request({
+      url: this.data.url + '/address/getDefault',
+      data: {
+        openId: wx.getStorageSync("openId")
+      },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log(res);
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
     this.setData({
       orders:wx.getStorageSync("orders")
     })

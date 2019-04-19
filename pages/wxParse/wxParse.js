@@ -153,7 +153,8 @@ function emojisInit(reg='',baseSrc="/wxParse/emojis/",emojis){
 module.exports = {
   wxParse: wxParse,
   wxParseTemArray:wxParseTemArray,
-  emojisInit:emojisInit
+  emojisInit:emojisInit,
+  url : getApp().globalData.url
 }
 
 
