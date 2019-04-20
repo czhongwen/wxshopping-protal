@@ -10,26 +10,13 @@ Page({
     url: getApp().globalData.url,
   },
   onLoad:function() {
-    wx.request({
-      url: this.data.url + '/address/getDefault',
-      data: {
-        openId: wx.getStorageSync("openId")
-      },
-      method: 'post',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        console.log(res);
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
     this.setData({
       orders:wx.getStorageSync("orders")
     })
+    let orders = wx.getStorageSync("orders");
     var numPrice=0;
-    for (let i = 0; i < this.data.orders.length; ++i) {
-      numPrice = numPrice + this.data.orders[i].pPrice * this.data.orders[i].pNum
+    for (let i = 0; i < orders.length; ++i) {
+      numPrice = numPrice + orders[i].price * orders[i].num
     }
     this.data.numPrice[0] = numPrice;
     this.data.numPrice[1] = numPrice-this.data.discount;
@@ -43,15 +30,32 @@ Page({
       this.setData({
         name: obj.name,
         phone: obj.phone,
-        address: obj.province+obj.city+obj.county+obj.detail
+        address: obj.provice+obj.city+obj.country+obj.detail
       })
     } else {
-      var arr=wx.getStorageSync("address")
-      wx.setStorageSync("choiceAddress", arr[0])
-      this.setData({
-        name: arr[0].name,
-        phone: arr[0].phone,
-        address: arr[0].province + arr[0].city + arr[0].county + arr[0].detail
+      let _this = this;
+      wx.request({
+        url: this.data.url + '/address/getDefault',
+        data: {
+          openId: wx.getStorageSync("openId")
+        },
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          if (res.data.flag) {
+            if (res.data.result != null) {
+              let data = res.data.result;
+              _this.setData({
+                name: data.name,
+                phone: data.phone,
+                address: data.provice + data.city + data.detail,
+              })
+            }
+          }
+        },
+        fail: function (res) { },
+        complete: function (res) { },
       })
     }
   },

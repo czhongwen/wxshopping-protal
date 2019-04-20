@@ -256,6 +256,7 @@ Page({
         flag = true;
       }
     }
+    console.log(orders);
     if (flag) {
       wx.setStorageSync("orders", orders);
       wx.navigateTo({

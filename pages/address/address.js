@@ -31,7 +31,6 @@ Page({
       },
       method:"post",
       success:function(res) {
-        console.log(res.data.result);
         if (res.data.flag) {
           if (res.data.rows > 0) {
             _this.setData({
@@ -39,15 +38,14 @@ Page({
             })
           }
         } else {
-
+          
         }
       }
     })
   },
   choice: function(e) {
     if (wx.getStorageSync("choiceFlag")) {
-      var arr = wx.getStorageSync("address")
-      wx.setStorageSync("choiceAddress", arr[e.currentTarget.dataset.indexadd])
+      wx.setStorageSync("choiceAddress", this.data.addresList[e.currentTarget.dataset.indexadd])
       wx.setStorageSync("choiceFlag", false)
       wx.navigateBack({
         url: "../order/order"

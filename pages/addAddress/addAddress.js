@@ -1,3 +1,4 @@
+var url = getApp().globalData.url;
 Page({
   data: {
     region: ['河南省', '信阳市', '浉河区'],
@@ -51,7 +52,6 @@ Page({
     })
   },
   bindRegionChange: function(e) {
-    //console.log('picker发送选择改变，携带值为', e.detail.value)
     var address = []
     for (let i = 0; i < e.detail.value.length; ++i) {
       address[i] = e.detail.value[i]
@@ -98,52 +98,38 @@ Page({
   },
 
   save: function(defaul) {
+    console.log(defaul);
     var adresList = wx.getStorageSync("address")
-    var arr = [{
-      aId: this.data.aId,
+    var obj = {
+      id: this.data.aId,
       name: this.data.name,
       phone: this.data.phone,
-      province: this.data.address[0],
+      provice: this.data.address[0],
       city: this.data.address[1],
-      county: this.data.address[2],
+      country: this.data.address[2],
       detail: this.data.detailAddress,
-      defalut: defaul
-    }]
-    if (this.data.msg == "addAddress") {
-      if (adresList.length == 0) {
-        wx.setStorageSync("address", arr)
-      } else {
-        if (this.data.defalut == true) {
-          var arr1 = arr.concat(adresList)
-        } else {
-          var arr1 = adresList.concat(arr)
-        }
-        wx.setStorageSync("address", arr1)
-      }
-    } else if (this.data.msg == "editor") {
-      if (this.data.defalut == true) {
-        for (let i = 0; i < adresList.length; ++i) {
-          if (adresList[i].aId == this.data.aId) {
-            adresList.splice(i, 1);
-            break;
-          }
-        }
-        var arr1 = arr.concat(adresList)
-      } else {
-        for (let i = 0; i < adresList.length; ++i) {
-          if (adresList[i].aId == this.data.aId) {
-            adresList[i] = arr[0]
-            break;
-          }
-        }
-        var arr1 = adresList
-      }
-      wx.setStorageSync("address", arr1)
+      userOpenId:wx.getStorageSync("openId"),
+      defaultStatus: defaul
     }
-    this.saveOld(arr);
-    this.checkAddressDefalut()
-    wx.setStorageSync("fakeAid", this.data.aId - 1)
-    wx.setStorageSync("addressFlag", true)
+    if (this.data.msg == "addAddress") {
+      wx.request({
+        url: url + '/address/addAddress',
+        data: obj,
+        method:"post",
+        success:function(res) {
+          console.log(res);
+        }
+      })
+    } else if (this.data.msg == "editor") {
+      wx.request({
+        url: url + '/address/updateAddress',
+        data: obj,
+        method: "post",
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }
     wx.navigateBack({
       url: "../address/address"
     })
@@ -155,114 +141,22 @@ Page({
     })
   },
   del: function() {
-    var adresList = wx.getStorageSync("address")
-    if (adresList.length != 0) {
-      var arr = wx.getStorageSync("delAddress")
-      for (let i = 0; i < adresList.length; ++i) {
-        if (adresList[i].aId == this.data.aId && this.data.aId >= 0) {
-          arr.push(adresList[i])
-        }
-        if (adresList[i].aId == this.data.aId) {
-          adresList.splice(i, 1);
-          break;
-        }
-      }
-      wx.setStorageSync("delAddressFlag", true)
-      wx.setStorageSync("delAddress", arr)
-      arr = wx.getStorageSync("insAddress")
-      for (let i = 0; i < arr.length; ++i) {
-        if (arr[i].aId == this.data.aId) {
-          arr.splice(i, 1);
+    wx.request({
+      url: url + '/address/delAddress',
+      method: "post",
+      data: {
+        openId:wx.getStorageSync("openId"),
+        id:this.data.aId
+      },
+      success:function(res) {
+        if (res.data.flag) {
+          if (res.data.result) {
+            wx.navigateBack({
+              url: "../address/address"
+            })
+          }
         }
       }
-      wx.setStorageSync("insAddress", arr)
-      arr = wx.getStorageSync("uptAddress")
-      for (let i = 0; i < arr.length; ++i) {
-        if (arr[i].aId == this.data.aId) {
-          arr.splice(i, 1);
-        }
-      }
-      wx.setStorageSync("uptAddress", arr)
-    } else {
-      adresList = []
-    }
-    wx.setStorageSync("address", adresList)
-    wx.setStorageSync("addressFlag", true)
-    wx.navigateBack({
-      url: "../address/address"
     })
   },
-  //保存修改后的信息
-  saveOld: function(arr) {
-    if (this.data.defalut==true){
-      var arr1=wx.getStorageSync("insAddress")
-      for(let i=0;i<arr1.length;++i){
-        if (this.data.aId == arr1[i].aId){
-          arr1[i].aId=0;
-          break;
-        }
-      }
-      wx.setStorageSync("insAddress", arr1)
-      var arr1 = wx.getStorageSync("uptAddress")
-      for (let i = 0; i<arr1.length; ++i) {
-        if (this.data.aId == arr1[i].aId) {
-          arr1[i].aId = 0;
-          break;
-        }
-      }
-    }
-    if (wx.getStorageSync("addAddressFlag") == true) {
-      wx.setStorageSync("insAddressFlag", true);
-      arr = arr.concat(wx.getStorageSync("insAddress"))
-      wx.setStorageSync("insAddress", arr)
-    }
-
-    if (wx.getStorageSync("editorFlag")) {
-      if (this.data.aId >= 0) {
-        wx.setStorageSync("uptAddressFlag", true);
-        arr = arr.concat(wx.getStorageSync("uptAddress"))
-        wx.setStorageSync("uptAddress", arr)
-      }
-    }
-
-    arr=wx.getStorageSync("address")
-    for (let i = 0; i < arr.length;++i){
-      if(this.data.aId!=arr[i].aId){
-        arr[i].defalut=0;
-      }
-    }
-    wx.setStorageSync("address", arr)
-  },
-  onUnload: function() {
-    wx.removeStorageSync("addAddressFlag")
-    wx.removeStorageSync("editorFlag")
-  },
-  checkAddressDefalut: function() {
-    if (this.data.defalut == true) {
-      if (wx.getStorageSync("uptAddress").length != 0) {
-        var arr = wx.getStorageSync("uptAddress");
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].aId == this.data.aId) {
-            continue;
-          }
-          arr[i].defalut = 0;
-        }
-        wx.setStorageSync("uptAddress", arr)
-      }
-      if (wx.getStorageSync("insAddress").length != 0) {
-        var arr = wx.getStorageSync("insAddress");
-        if (wx.getStorageSync("addAddressFlag") == true) {
-          arr[0].defalut = 1;
-          for (let i = 1; i < arr.length; i++) {
-            arr[i].defalut = 0;
-          }
-        } else {
-          for (let i = 0; i < arr.length; i++) {
-            arr[i].defalut = 0;
-          }
-        }
-        wx.setStorageSync("insAddress", arr);
-      }
-    }
-  }
 })
