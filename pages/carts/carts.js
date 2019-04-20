@@ -140,7 +140,7 @@ Page({
     this.setData({
       cartList: this.data.cartList,
     })
-    if (this.data.cartList[e.currentTarget.dataset.cartindex].flag != false) {
+    if (this.data.cartList[e.currentTarget.dataset.cartindex].flag) {
       this.data.cartNumPrice[1] = this.data.cartNumPrice[1] + this.data.cartList[e.currentTarget.dataset.cartindex].price
       this.setData({
         cartNumPrice: this.data.cartNumPrice
@@ -285,7 +285,7 @@ Page({
       cartList: [],
       viewFlag: false,
       height: 0,
-      chooseFlag: false,
+      chooseFlag: true,
       orderStyle: "",
     })
 

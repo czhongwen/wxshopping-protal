@@ -56,7 +56,9 @@
     <view class='view71'>
       <checkbox bindtap='choseAll' checked='{{allCheckFlag}}'>全选</checkbox>
     </view>
-    <view class='view72' style='text-align:right;margin-right:15px;'><text hidden='{{chooseFlag}}'>已选({{cartNumPrice[0]}})共</text>¥{{cartNumPrice[1]}}</view>
+    <view class='view72' style='text-align:right;margin-right:15px;'>
+      <text hidden='{{chooseFlag}}'>已选({{cartNumPrice[0]}})共¥{{cartNumPrice[1]}}</text>
+    </view>
     <view class='view73' bindtap='order' style='{{orderStyle}}'>下单</view>
   </view>
 </block>
