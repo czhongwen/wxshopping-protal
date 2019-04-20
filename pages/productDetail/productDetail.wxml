@@ -1,7 +1,7 @@
 <!--顶部做滑块中间部分做滑动商品详情-->
 <view catchtouchmove = "{{isScoll}}">
 <!--顶部循环的商品详情图片-->
-<view class="share">分享好物</view>
+<button class="share" open-type="share" >分享好物</button>
 <swiper  circular='true'  class='switer' bindchange='changImage' duration='666'>
   <block wx:for="{{switer}}">
     <swiper-item>
