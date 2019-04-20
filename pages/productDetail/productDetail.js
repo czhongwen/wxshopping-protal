@@ -10,6 +10,8 @@ Page({
     pPrice: "",
     pId: 0,
     num:1,
+    list:[],
+    isScoll:false,
     pType:
     [
       { pTN: "颜色", pType: ["红色", "白色", "黑色"] },
@@ -28,6 +30,7 @@ Page({
       },
       success: function(res) {
         if(res.data.flag) {
+          console.log(res.data.result);
           that.data.switer = [];
           that.data.switer.push(res.data.result.image1);
           that.data.switer.push(res.data.result.image2);
@@ -35,6 +38,7 @@ Page({
           that.data.switer.push(res.data.result.image4);
           that.data.switer.push(res.data.result.image5);
           that.setData({
+            list: [res.data.result],
             switer:that.data.switer,
             pId: res.data.result.id,
             pName: res.data.result.name,
@@ -66,11 +70,22 @@ Page({
     })
   },
   buyNow: function() {
+    this.data.list[0].num = this.data.num;
+    this.data.list[0]["image"] = this.data.list[0].image1;
+    wx.setStorageSync("orders", this.data.list);
+    wx.redirectTo({
+      url: '../order/order',
+    })
+  },
+
+  choiceType: function(){
     this.setData({
+      isScoll:true,
       style: "height:65%;bottom:10px;",
       actionView:"height:100%;"
     })
   },
+
   changImage: function(e) {
     this.setData({
       imageIndex: e.detail.current + 1
@@ -87,6 +102,7 @@ Page({
 
   shutdown: function() {
     this.setData({
+      isScoll:false,
       style: "height:1px;bottom:10px;",
       actionView: "height:1px;"
     })

@@ -1,17 +1,17 @@
 <!--顶部做滑块中间部分做滑动商品详情-->
-
+<view catchtouchmove = "{{isScoll}}">
 <!--顶部循环的商品详情图片-->
-  <view class="share">分享好物</view>
-  <swiper  circular='true'  class='switer' bindchange='changImage' duration='666'>
-    <block wx:for="{{switer}}">
-      <swiper-item>
-        <image src='{{url+item}}'  style='background:#eee;'></image>
-      </swiper-item>
-    </block>
-  </swiper>
-  <view class="page">{{imageIndex}}/5</view>
-<view class='topView'>
+<view class="share">分享好物</view>
+<swiper  circular='true'  class='switer' bindchange='changImage' duration='666'>
+  <block wx:for="{{switer}}">
+    <swiper-item>
+      <image src='{{url+item}}'  style='background:#eee;'></image>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="page">{{imageIndex}}/5</view>
 
+<view class='topView'>
   <view class='detail'>
     <view class='detail1'>
       <text>{{pName}}\n</text>
@@ -37,7 +37,7 @@
   <!--分割线-->
   <view style='width:98%;height:5px;background:#EDEDED'></view>
   <!--此处将做成循环 数据从数据库中拿 便于控制-->
-  <view class='viewNumCh' bindtap='buyNow'>
+  <view class='viewNumCh' bindtap='choiceType'>
     <view class='viewNumCh1'>数量规格选择</view>
     <image src='../icons/arrow-right.png'></image>
   </view>
@@ -125,4 +125,6 @@
     </view>
   </view>
   <view style='height:50px;width:100%;' />
+</view>
+
 </view>
