@@ -39,7 +39,7 @@ Page({
                 fahuo.push(arr[i])
               } else if (arr[i].status === "已发货") {
                 shouhuo.push(arr[i])
-              } else if(arr[i].status === "已收货") {
+              } else if(arr[i].status === "已完成") {
                 wancheng.push(arr[i])
               }
             }
