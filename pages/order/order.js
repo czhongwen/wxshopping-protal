@@ -7,6 +7,7 @@ Page({
     phone:"",
     address:"",
     type:null,
+    addressId:null,
     url: getApp().globalData.url,
   },
   onLoad:function() {
@@ -30,7 +31,8 @@ Page({
       this.setData({
         name: obj.name,
         phone: obj.phone,
-        address: obj.provice+obj.city+obj.country+obj.detail
+        address: obj.provice+obj.city+obj.country+obj.detail,
+        addressId:obj.id,
       })
     } else {
       let _this = this;
@@ -50,6 +52,7 @@ Page({
                 name: data.name,
                 phone: data.phone,
                 address: data.provice + data.city + data.detail,
+                addressId: data.id,
               })
             }
           }
@@ -63,24 +66,23 @@ Page({
     this.checkAddres()
     var arr=wx.getStorageSync("orders")
     var orders=[];
+    var cartIds=[];
     for(let i=0;i<arr.length;i++){
-      var obj={pId:0,num:0};
-      obj.pId=arr[i].pId;
-      obj.num=arr[i].pNum
+      var obj = { productId:0,num:0};
+      obj.productId = arr[i].productId;
+      obj.num=arr[i].num
+      cartIds.push(arr[i].id)
       orders.push(obj)
     }
     var that=this
     wx.request({
-      url: that.data.url+'/wxshopping/LoadOrders',
-      data: {
-        openId: wx.getStorageSync("openId"),
-        type: that.data.type,
-        orders: JSON.stringify(orders),
-        address: JSON.stringify(wx.getStorageSync("choiceAddress")),
-      },
-      method: "POST",
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
+      url: that.data.url +'/order/addOrders',
+      method:"POST",
+      data:{
+        cartIds: cartIds,
+        list: orders,
+        openId:wx.getStorageSync("openId"),
+        addressId: that.data.addressId,
       },
       success: function (res) {
         that.checkCarts()
