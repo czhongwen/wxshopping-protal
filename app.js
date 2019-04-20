@@ -4,7 +4,7 @@
 //https://www.czhongwen.xyz
 App({
   globalData: {
-    url: "http://10.18.72.80:8081",
+    url: "http://172.20.10.11:8081",
     userInfo: 0,
     width: 0,
     height: 0,
