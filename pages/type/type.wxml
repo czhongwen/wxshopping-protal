@@ -17,7 +17,7 @@
           <view class='firstView3'>
             <view class='firstView4' wx:for="{{item.detail}}">
               <image bindtap='browse' data-id='{{item.id}}' class='firstImage1' src='{{url+item.imageUrl}}'></image>
-              <text >\n{{item.name}}</text>
+              <text style='overflow: hidden;'>\n{{item.name}}</text>
             </view>
           </view>
         </view>
