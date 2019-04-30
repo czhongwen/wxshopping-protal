@@ -4,7 +4,7 @@
 //https://www.czhongwen.xyz
 App({
   globalData: {
-    url: "https://localhost:80",
+    url: "https://www.czhongwen.xyz:80",
     userInfo: 0,
     width: 0,
     height: 0,

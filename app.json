@@ -11,6 +11,7 @@
     "pages/search/search",
     "pages/order/order",
     "pages/productDetail/productDetail",
+    "pages/chat/chat",
     "pages/logs/logs"
   ],
   "window": {

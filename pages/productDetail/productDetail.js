@@ -62,7 +62,9 @@ Page({
     })
   },
   service: function() {
-    console.log("还没有写好")
+    wx.navigateTo({
+      url: '../chat/chat',
+    })
   },
   carts: function() {
     wx.switchTab({

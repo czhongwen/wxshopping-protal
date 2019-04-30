@@ -8,15 +8,15 @@
   </view>
   <view class='scv'>
     <swiper class='swiper' indicator-dots='true' autoplay='true' interval='2000'duration='1000' circular='true'>
-      <block wx:for="{{topImgs}}">
+      <block wx:for="{{topImgs}}" wx:for-index="idx" wx:for-item='item'>
         <swiper-item>
-          <image lazy-load='true' src="{{item}}" class="slide-image"/>
+          <image lazy-load='true' bindtap='topNavigation' data-index='{{idx}}' src="{{item}}" class="slide-image"/>
         </swiper-item>
       </block>
     </swiper>
     <view class='viewImage'>
       <!-- <image lazy-load='true' class='imageSuccess' src='../icons/success.png'/>中文自营品牌 -->
-      <icon size='13' type='success' color='green'/>中文自营品牌
+      <icon size='13' type='success' color='green'/>自主自营品牌
       <icon size='13' type='success' color='green'/>30天无忧退货
       <icon size='13' type='success' color='green'/>48小时快速退款
     </view>
@@ -24,10 +24,16 @@
     <view  class='duView' style='height:{{0.38*height+6}}px;'>
         <text>独乐乐,不如众乐乐</text>
         <view style='width:96%;margin-left:2%;display:flex;'>
-          <view style='width:50%;height:{{0.18*height}}px;'><image lazy-load='true' class='duImage' src='https://yanxuan.nosdn.127.net/d4002aef39dd31e83984843c37a13c82.jpg?imageView&&thumbnail=1090x310&quality=95'></image></view>
-          <view style='width:50%;height:{{0.18*height}}px;margin-left:2%;'><image lazy-load='true' class='duImage' src='https://yanxuan.nosdn.127.net/d4002aef39dd31e83984843c37a13c82.jpg?imageView&&thumbnail=1090x310&quality=95'></image></view>
+          <view style='width:50%;height:{{0.18*height}}px;'>
+            <image bindtap='browseProduct' data-id="1" lazy-load='true' class='duImage' src='https://yanxuan.nosdn.127.net/137aff8425c23b75be2964251cb590d2.jpg?imageView&quality=95'></image>
+          </view>
+          <view style='width:50%;height:{{0.18*height}}px;margin-left:2%;'>
+            <image bindtap='browseProduct' data-id="2" lazy-load='true' class='duImage' src='https://yanxuan.nosdn.127.net/dd3c01b4527e9a5bf1d9ee35475c5e33.jpg?imageView&quality=95'></image>
+          </view>
         </view>
-        <view style='width:100%;margin-top:6px;height:{{0.16*height}}px'><image lazy-load='true' class='duleImage' src='https://yanxuan.nosdn.127.net/d73b85e3f3d6e2bcecdda65ab87e3846.jpg?imageView&&thumbnail=1090x310&quality=95'></image></view>
+        <view style='width:100%;margin-top:6px;height:{{0.16*height}}px'>
+          <image bindtap='browseProduct' data-id="3" lazy-load='true' class='duleImage' src='https://yanxuan.nosdn.127.net/9b0e5b04e7ed226a0ab20b140c65e346.jpg?imageView&quality=95'></image>
+        </view>
     </view>
     
     

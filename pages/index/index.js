@@ -3,13 +3,11 @@ Page({
   data:{
     url: getApp().globalData.url,
     topImgs: [
-      'https://yanxuan.nosdn.127.net/75bb6a4e55b17bdc8a81bac6ea39b120.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/a99ef1ec866bd319b54137213c0ce136.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/6e5a44a36febd49c754491e2788e84c5.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/aa3867a78c8851aa9f0fb7e0fbb7390c.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/f4effede20eace873fc30ee6364ff4e2.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/fe647a9a27356d3b02d57cb0656a6c34.jpg?quality=95&thumbnail=1920x420&imageView',
-      'https://yanxuan.nosdn.127.net/067c1d07db7a336163427f482dd528ea.jpg?quality=95&thumbnail=1920x420&imageView'
+      'https://yanxuan.nosdn.127.net/cbca7658cd8d4c204188f6b34e1e9556.jpg?imageView&quality=95&thumbnail=1090x310',
+      'https://yanxuan.nosdn.127.net/6620afac8d8a83785d356a67cd1c5c21.jpg?imageView&quality=95&thumbnail=1090x310',
+      'https://yanxuan.nosdn.127.net/41b0dc4d905015712659fad6a31af5a2.jpg?imageView&quality=95&thumbnail=1090x310',
+      'https://yanxuan.nosdn.127.net/97983065bc6e66cea027682feb7a54e6.jpg?imageView&quality=95&thumbnail=1090x310',
+      'https://yanxuan.nosdn.127.net/919c7953daf1a3f89473141f3b19dc39.jpg?imageView&quality=95&thumbnail=1090x310',
     ],
     bottomList:[],
     height:getApp().globalData.height
@@ -49,6 +47,51 @@ Page({
   click:function(e){
     wx.navigateTo({
       url: '../productDetail/productDetail?pId=' + e.currentTarget.dataset.index,
+    })
+  },
+  browseProduct:function(e){
+
+    //这一段很狗血， 哈哈哈，
+    let id = 21;
+    if (e.currentTarget.dataset.id == 1) {
+      id = Math.round(Math.random() * 10) + 9
+      id = id >= 19 ? 18 : id;
+    } else if (e.currentTarget.dataset.id == 2) {
+      id = Math.round(Math.random() * 10) + 57
+      id = id >= 71 ? 70 : id;
+    } else if (e.currentTarget.dataset.id == 3) {
+      id = Math.round(Math.random() * 10) + 19
+      id = id >= 31 ? 29 : id;
+    } else {
+
+    }
+    wx.navigateTo({
+      url: '../browseProduct/browseProduct?type=0&' + 'typeId=' + id,
+    })
+  },
+  topNavigation: function(e){
+    //这一段也很狗血， 哈哈哈，
+    let index = 21;
+    if (e.currentTarget.dataset.index == 1) {
+      index = Math.round(Math.random() * 10) + 48
+      index = index >= 57 ? 56 : index;
+    } else if (e.currentTarget.dataset.index == 2) {
+      index = Math.round(Math.random() * 10) + 9
+      index = index >= 22 ? 21 : index;
+    } else if (e.currentTarget.dataset.index == 3) {
+      index = Math.round(Math.random() * 10) 
+      index = index >= 9 ? 8 : index;
+    } else if (e.currentTarget.dataset.index == 4) {
+      index = Math.round(Math.random() * 10) + 29
+      index = index >= 39 ? 38 : index;
+    } else if (e.currentTarget.dataset.index == 5) {
+      index = Math.round(Math.random() * 10) + 71
+      index = index >= 76 ? 75 : index;
+    } else {
+
+    }
+    wx.navigateTo({
+      url: '../browseProduct/browseProduct?type=0&' + 'typeId=' + index,
     })
   }
 })
