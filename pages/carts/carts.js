@@ -146,6 +146,27 @@ Page({
         cartNumPrice: this.data.cartNumPrice
       })
     }
+    wx.request({
+      url: url + '/cart/updateNum',
+      data: {
+        cartId: this.data.cartList[e.currentTarget.dataset.cartindex].id,
+        productNum: num + 1,
+      },
+      method: "POST",
+      success: function (res) {
+        if (res.data.flag) {
+          if (!res.data.result) {
+            wx.showToast({
+              title: '系统繁忙,请稍后重试'
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+          })
+        }
+      }
+    })
   },
   /**
    * 删减商品数量
@@ -153,6 +174,27 @@ Page({
   minusNum: function (e) {
     var num = this.data.cartList[e.currentTarget.dataset.cartindex].num
     if (num > 1) {
+      wx.request({
+        url: url + '/cart/updateNum',
+        data:{
+          cartId: this.data.cartList[e.currentTarget.dataset.cartindex].id,
+          productNum: num-1,
+        },
+        method: "POST",
+        success:function(res){
+          if(res.data.flag) {
+            if(!res.data.result) {
+              wx.showToast({
+                title: '系统繁忙,请稍后重试'
+              })
+            }
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+            })
+          }
+        }
+      })
       this.data.cartList[e.currentTarget.dataset.cartindex].num = num - 1;
       this.setData({
         cartList: this.data.cartList,
