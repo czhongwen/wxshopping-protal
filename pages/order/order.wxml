@@ -1,15 +1,20 @@
 <!--pages/order/order.wxml-->
 <view style='width:100%;background:#eee;height:3px;'></view>
 <view style='width:100%;height:68px;display:flex;background: wheat;' bindtap='choice'>
-  <!--<view style='position: absolute;z-index:2;border:1px red solid;border-radius:4px;color:red;font-size:12px;left:8%;top:48px;'>默认</view>-->
-  <view style='width:26%;height:60px; line-height:60px;vertical-align: text-top;text-align:center'>{{name}}</view>
-  <view style='width:65%;height:30px;'>
-    <view style='width:100%;height:30px;line-height:30px;vertical-align: middle;text-align:lefft'>{{phone}}</view>
+  <view wx:if="{{addressFlag}}" style='width:26%;height:60px; line-height:60px;vertical-align: text-top;text-align:center'>{{name}}</view>
+  <view wx:if="{{addressFlag}}" style='width:65%;height:30px;'>
+    <view  style='width:100%;height:30px;line-height:30px;vertical-align: middle;text-align:lefft'>{{phone}}</view>
     <block >
       <view style='width:100%;height:35px;overflow:hidden;font-size:14px;'>{{address}}</view>
     </block>
   </view>
-  <view style='width:10%;height:60px;line-height:60px;vertical-align: middle;text-align:center'><image src='../icons/arrow-right.png' style='width:25px;height:25px;line-height:60px;vertical-align: middle;'></image></view>
+  <view style='width:90%;height:60px;line-height:60px;text-align:center' wx:if="{{!addressFlag}}">
+    您还没有设置地址请添加地址👉
+  </view>
+  <view style='width:10%;height:60px;line-height:60px;vertical-align: middle;text-align:center'>
+    <image src='../icons/arrow-right.png' style='width:25px;height:25px;line-height:60px;vertical-align: middle;'></image>
+  </view>
+
 </view>
 <view style='width:100%;background:#eee;height:3px;'></view>
 <view style='width:96%;margin-left:2%;height:30px;line-height:30px;vertical-align: middle;overflow:hidden'>满减活动(全场通用,限时价,特购价...)<image src='../icons/arrow-right.png' style='margin-top:7px;width:15px;height:15px;line-height:30px;vertical-align: middle;float:right'></image> </view>

@@ -10,6 +10,7 @@ Page({
     type:null,
     addressId:null,
     url: getApp().globalData.url,
+    addressFlag: true,
   },
   onLoad:function() {
     this.setData({
@@ -30,6 +31,7 @@ Page({
     if (wx.getStorageSync("choiceAddress") != "") {
       var obj = wx.getStorageSync("choiceAddress")
       this.setData({
+        addressFlag: true,
         name: obj.name,
         phone: obj.phone,
         address: obj.provice+obj.city+obj.country+obj.detail,
@@ -54,6 +56,11 @@ Page({
                 phone: data.phone,
                 address: data.provice + data.city + data.detail,
                 addressId: data.id,
+                addressFlag: true,
+              })
+            } else {
+              _this.setData({
+                addressFlag: false,
               })
             }
           }
@@ -65,6 +72,14 @@ Page({
   },
   pay:function(){
     this.checkAddres()
+    var that = this
+    if (that.data.addressId == null || that.data.addressId < 0) {
+      return wx.showToast({
+        title: '您未填写收货地址!',
+        icon: "none",
+        duration: 3000
+      })
+    }
     var arr=wx.getStorageSync("orders")
     var orders=[];
     var cartIds=[];
@@ -75,7 +90,6 @@ Page({
       cartIds.push(arr[i].id)
       orders.push(obj)
     }
-    var that=this
     wx.request({
       url: that.data.url +'/order/addOrders',
       method:"POST",
@@ -86,30 +100,28 @@ Page({
         addressId: that.data.addressId,
       },
       success: function (res) {
-        that.checkCarts()
-        wx.redirectTo({
-          url: '../myOrders/myOrders',
-        })
-      }
-    })
-  },
-  checkCarts:function(){
-    var arr=wx.getStorageSync("orders")
-    var carts=wx.getStorageSync("carts")
-    for(let i=0;i<arr.length;i++){
-      for(let j=0;j<carts.length;j++){
-        if (arr[i].pId==carts[j].pId){
-          carts.splice(j,1)
-          break;
+        if (res.data.flag) {
+          if(res.data.result) {
+            wx.redirectTo({
+              url: '../myOrders/myOrders',
+            })
+            wx.removeStorageSync("orders")
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: "none",
+              duration: 3000
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: "none",
+            duration: 3000
+          })
         }
       }
-    }
-    if(carts.length==0){
-      carts=[];
-    }
-    wx.setStorageSync("carts", carts)
-    wx.setStorageSync("addressFlag", true)
-    wx.removeStorageSync("orders")
+    })
   },
   checkAddres:function(){
     var obj = wx.getStorageSync("choiceAddress");

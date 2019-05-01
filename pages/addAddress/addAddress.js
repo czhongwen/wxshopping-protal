@@ -7,7 +7,7 @@ Page({
     phone: "",
     address: "",
     detailAddress: "",
-    defalut: false,
+    defalut: true,
     delFlag: true,
     aId: -1,
     msg:""
