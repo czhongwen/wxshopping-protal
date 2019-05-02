@@ -3,23 +3,38 @@
   <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGetUserInfo" hidden='{{flag}}' >微信登录</button>
 </view>
 <view wx:else="{{flag==true}}">
-      <view class='topView' >
-        <view class='imageView'><image src='{{userInfo.avatarUrl}}' ></image></view>
-        <view class='viewBox' >
-          <view class='nkView'>{{userInfo.nickName}}</view>
-          <view class='plView'>{{userInfo.province}}{{userInfo.city}}</view>
-        </view>
-      </view>
+  <view class='topView' >
+    <view class='imageView'><image src='{{userInfo.avatarUrl}}' ></image></view>
+    <view class='viewBox' >
+      <view class='nkView'>{{userInfo.nickName}}</view>
+      <view class='plView'>{{userInfo.province}}{{userInfo.city}}</view>
+    </view>
+  </view>
 
-      <!--此处最好做成for循环 所有数据从后台拿取 便于将来修改此处某些东西 -->
-      <view class='tabView' wx:for='{{type}}'>
+  <!--此处最好做成for循环 所有数据从后台拿取 便于将来修改此处某些东西 -->
+  <view class='tabView' wx:for='{{type}}' wx:for-index="index" wx:for-item="item">
 
-        <view class='hang' bindtap='choose' data-index='{{index}}' >
+    <block wx:if="{{item.typeName == '联系客服'}}">
+      <button open-type="contact" bindcontact="handleContact">
+        <view class='hang'>
           <view class='hangImage1'><image src='{{item.topImage}}'></image></view>
           <view class='hangName'>{{item.typeName}}</view>  
           <view class='hangImage' ><image src='{{item.bottomImage}}'></image></view>
         </view>
         <view class='line'></view>
+      </button>
+    </block>
 
-      </view>
+    <block wx:else>
+      <button bindtap='choose' data-index='{{index}}' >
+      <view class='hang'>
+        <view class='hangImage1'><image src='{{item.topImage}}'></image></view>
+        <view class='hangName'>{{item.typeName}}</view>  
+        <view class='hangImage' ><image src='{{item.bottomImage}}'></image></view>
+        </view>
+      </button>
+      <view class='line'></view>
+    </block>
+
+  </view>
 </view>

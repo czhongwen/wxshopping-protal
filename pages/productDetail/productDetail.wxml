@@ -64,8 +64,10 @@
   <view class='bottomIcn1' bindtap='home'>
     <image src='../icons/3.png'></image>
   </view>
-  <view class='bottomIcn2' bindtap='service'>
-    <image src='../icons/service.png'></image>
+  <view class='bottomIcn2'>
+    <button open-type="contact" bindcontact="handleContact">
+      <image src='../icons/service.png'></image>
+    </button>
   </view>
   <view class='bottomIcn3' bindtap='carts'>
     <image src='../icons/cart.png'></image>

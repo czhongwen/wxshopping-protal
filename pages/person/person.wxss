@@ -67,3 +67,22 @@
   background: #ddd;
   margin-left: 1%;
 }
+button {
+  font-size: auto;
+  background-color:white;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-align: left;
+}
+
+input {
+  outline: none;
+  border: none;
+  list-style: none;
+}
+
+button::after {
+  border: none;
+}
