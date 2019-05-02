@@ -1,6 +1,6 @@
 
 <view wx:if="{{flag==false}}">
-  <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGetUserInfo" hidden='{{flag}}' >微信登录</button>
+  <button style='border:1px;text-align:center;margin-top:5%;background-color:#eee;padding:15px;'  open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGetUserInfo" hidden='{{flag}}' >微信登录</button>
 </view>
 <view wx:else="{{flag==true}}">
   <view class='topView' >
@@ -15,7 +15,7 @@
   <view class='tabView' wx:for='{{type}}' wx:for-index="index" wx:for-item="item">
 
     <block wx:if="{{item.typeName == '联系客服'}}">
-      <button open-type="contact" bindcontact="handleContact">
+      <button class='btn' open-type="contact" bindcontact="handleContact">
         <view class='hang'>
           <view class='hangImage1'><image src='{{item.topImage}}'></image></view>
           <view class='hangName'>{{item.typeName}}</view>  
