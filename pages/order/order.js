@@ -85,7 +85,7 @@ Page({
     var cartIds=[];
     for(let i=0;i<arr.length;i++){
       var obj = { productId:0,num:0};
-      obj.productId = arr[i].productId;
+      obj.productId = arr[i].id;
       obj.num=arr[i].num
       cartIds.push(arr[i].id)
       orders.push(obj)

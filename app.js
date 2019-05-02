@@ -65,5 +65,13 @@ App({
         that.globalData.height = res.screenHeight
       }
     })
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          console.log("用户未授权!")
+          
+        }
+      }
+    })
   },
 })
