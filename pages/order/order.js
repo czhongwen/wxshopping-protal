@@ -98,6 +98,7 @@ Page({
         list: orders,
         openId:wx.getStorageSync("openId"),
         addressId: that.data.addressId,
+        formId: wx.getStorageSync("formId")
       },
       success: function (res) {
         if (res.data.flag) {
@@ -168,5 +169,13 @@ Page({
     wx.navigateTo({
       url: '../address/address',
     })
+  },
+  /**
+   * 获得formId
+   */
+  bindPayFormSubmit:function(event){
+    console.log(event.detail.formId);
+    wx.setStorageSync('formId', event.detail.formId)
+    this.pay();
   }
 })

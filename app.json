@@ -52,5 +52,6 @@
         "text": "用户"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

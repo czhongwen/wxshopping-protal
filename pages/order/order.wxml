@@ -45,5 +45,7 @@
 <!--底部tabbar-->
 <view style='position:fixed;width:100%;height:50px;background:#ddd;bottom:1px;text-align:center;display:flex;'>
     <view style='width:50%;color:red;line-height:50px;'>实付:¥{{numPrice[1]}}.00</view> 
-    <view style='margin-left:20%;width:30%;color:white;background:red;line-height:50px;' bindtap='pay'>付款</view>
+    <form style='margin-left:20%;width:30%;color:white;background:red;line-height:50px;' bindsubmit='bindPayFormSubmit' report-submit='true'>
+      <button form-type="submit" style='line-height:50px;border-radius:0px;background-color:red'>付款</button>
+    </form>
 </view>
