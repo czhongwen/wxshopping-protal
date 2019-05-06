@@ -11,6 +11,7 @@ Page({
     addressId:null,
     url: getApp().globalData.url,
     addressFlag: true,
+    orderFlag: true,
   },
   onLoad:function() {
     this.setData({
@@ -28,6 +29,9 @@ Page({
     })
   },
   onShow:function(){
+    this.setData({
+      orderFlag: true,
+    })
     if (wx.getStorageSync("choiceAddress") != "") {
       var obj = wx.getStorageSync("choiceAddress")
       this.setData({
@@ -73,6 +77,12 @@ Page({
   pay:function(){
     this.checkAddres()
     var that = this
+    if (!that.data.orderFlag) {
+      return;
+    }
+    that.setData({
+      orderFlag: false
+    })
     if (that.data.addressId == null || that.data.addressId < 0) {
       return wx.showToast({
         title: '您未填写收货地址!',
@@ -85,7 +95,7 @@ Page({
     var cartIds=[];
     for(let i=0;i<arr.length;i++){
       var obj = { productId:0,num:0};
-      obj.productId = arr[i].id;
+      obj.productId = arr[i].productId;
       obj.num=arr[i].num
       cartIds.push(arr[i].id)
       orders.push(obj)
@@ -121,6 +131,9 @@ Page({
             duration: 3000
           })
         }
+        that.setData({
+          orderFlag: true
+        })
       }
     })
   },

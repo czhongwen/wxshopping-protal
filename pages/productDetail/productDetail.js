@@ -74,6 +74,9 @@ Page({
   buyNow: function() {
     this.data.list[0].num = this.data.num;
     this.data.list[0]["image"] = this.data.list[0].image1;
+    let temp = this.data.list[0].id;
+    delete this.data.list[0]["id"];
+    this.data.list[0]["productId"] = temp;
     wx.setStorageSync("orders", this.data.list);
     wx.redirectTo({
       url: '../order/order',

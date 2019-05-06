@@ -93,5 +93,10 @@ Page({
     wx.navigateTo({
       url: '../browseProduct/browseProduct?type=0&' + 'typeId=' + index,
     })
+  },
+  onPullDownRefresh:function(){
+    console.log("xiala")
+    this.onShow();
+    wx.stopPullDownRefresh();
   }
 })

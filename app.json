@@ -19,7 +19,8 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "微信商城",
     "navigationBarTextStyle": "black",
-    "disableScroll": false
+    "disableScroll": false,
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "position": "bottom",

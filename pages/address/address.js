@@ -52,4 +52,7 @@ Page({
       })
     }
   },
+  onPullDownRefresh:function() {
+    this.onShow();
+  }
 })
