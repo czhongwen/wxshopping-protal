@@ -147,7 +147,7 @@ view{
   width: 30%;
   text-align: center;
   padding-top: 15px;
-  background: red;
+  background: #eee;
 }
 .action{
   position: fixed;

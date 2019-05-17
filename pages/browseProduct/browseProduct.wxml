@@ -14,7 +14,7 @@
   <view style='width:100%;height:30px;'></view>
   
   <!--商品列表-->
-  <view style='width:98%;margin-left:1%;margin-bottom:2px;' wx:for='{{arr}}'>
+  <view wx:for='{{arr}}'>
       <view style='width:46%;height:{{width+30}}px;float:left;margin-left:2.5%;'>
         <view style='background:#eee;width:100%;height:{{width-20}}px'>
           <image style='width:100%;height:100%;' bindtap='detail' data-id='{{item.id}}' src='{{url+item.image1}}'></image>

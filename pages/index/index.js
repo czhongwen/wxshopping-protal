@@ -95,7 +95,6 @@ Page({
     })
   },
   onPullDownRefresh:function(){
-    console.log("xiala")
     this.onShow();
     wx.stopPullDownRefresh();
   }
