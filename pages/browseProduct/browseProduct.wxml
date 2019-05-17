@@ -24,4 +24,13 @@
       </view>
   </view>
 </view>
+<!-- <view hidden='{{bottomFlag}}' style="font-size:25rpx;text-align:center;color:#ddd;height:100rpx;position:static;bottom:0px;width:{{width*2-10}}px;line-height:100rpx;">
+    ————  我是有底线的  ————
+</view> -->
+
+
+
+
+
+
 

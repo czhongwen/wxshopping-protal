@@ -14,6 +14,7 @@ Page({
     url: getApp().globalData.url,
     order:null,
     typeId:null,
+    bottomFlag:true,
     count: 0,
     offset:0,
     limit: 8,
@@ -105,8 +106,10 @@ Page({
 
   onReachBottom: function() {
     if (this.data.count <= this.data.offset ){
-        console.log("没有数据了！！！");
-        return;
+      this.setData({
+        bottomFlag: false,
+      })
+      return;
     }
     var that = this
     wx.showNavigationBarLoading()
@@ -134,5 +137,12 @@ Page({
         wx.hideNavigationBarLoading();
       }
     })
+  },
+  onPullDownRefresh: function () {
+    if (getCurrentPages().length != 0) {
+      //刷新当前页面的数据
+      getCurrentPages()[getCurrentPages().length - 1].onLoad()
+    }
+    wx.stopPullDownRefresh();
   },
 })

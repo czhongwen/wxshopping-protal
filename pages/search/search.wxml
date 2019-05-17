@@ -1,5 +1,5 @@
 <!--pages/search/search.wxml-->
-<input bindinput='key' confirm-type='search' bindconfirm='search' style='margin-top:5px;width:96%;margin-left:2%;border-radius:20px;text-align:center;background:#F5F5F5;height:40px;' placeholder='{{tishi}}' value='{{selectKey}}'></input>
+<input bindinput='key' confirm-type='search' bindconfirm='search' style='margin-top:5px;width:96%;margin-left:2%;border-radius:20px;text-align:center;background:#F5F5F5;height:40px;' placeholder='请输入查询商品名称' value='{{selectKey}}'></input>
 <text style='position:absolute;z-index:2;top:3px;height:40px;line-height:40px;vertical-align:middle;right:15px;width:30px;text-align:center;font-size:28px;' bindtap='delSelectKey' hidden='{{delFlag}}'>×</text>
 <view wx:for='{{keys}}' hidden='{{keysFlag}}'>
   <view style='width:96%;margin-left:4%;' bindtap='selcetKey' data-key='{{item[0]}}' >{{item[0]}}</view>

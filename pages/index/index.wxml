@@ -55,4 +55,9 @@
       </view>
     </view>
   </view>
+
 </view>
+<view hidden='{{bottomFlag}}' style="font-size:25rpx;text-align:center;color:#ddd;height:60rpx;line-height:60rpx;width:100%;padding-bottom:70rpx;">
+    ————  我是有底线的  ————
+  </view>
+

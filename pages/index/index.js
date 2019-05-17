@@ -10,6 +10,7 @@ Page({
       'https://yanxuan.nosdn.127.net/919c7953daf1a3f89473141f3b19dc39.jpg?imageView&quality=95&thumbnail=1090x310',
     ],
     bottomList:[],
+    bottomFlag:true,
     height:getApp().globalData.height
   },
   search:function(){
@@ -97,5 +98,10 @@ Page({
   onPullDownRefresh:function(){
     this.onShow();
     wx.stopPullDownRefresh();
+  },
+  onReachBottom:function(){
+    this.setData({
+      bottomFlag:false,
+    })
   }
 })
